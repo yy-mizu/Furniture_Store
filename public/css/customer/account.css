@@ -1,0 +1,48 @@
+.form-wrapper
+{
+    display: flex;
+    justify-content: center;
+   
+    
+}
+
+/* FOR LOGIN */
+.login-form-container
+{
+    display: flex;
+    width: 50%;
+}
+.login-form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 90%;
+    
+}
+
+/* FOR LOGIN */
+.register-form-container
+{
+    display: flex;
+    width: 45%;
+}
+
+.register-form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 90%;
+}
+
+label{
+ 
+    font-size: small;
+}
+
+input
+{
+    margin-bottom: 0.7rem;
+    height: 1.8rem;
+}
