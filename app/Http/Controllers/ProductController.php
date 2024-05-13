@@ -33,11 +33,11 @@ class ProductController extends Controller
 
 // dd($productlist);
         $imagelist =DB::table('product_image')
-                // ->join('products', 'product_image.product_id', '=', 'products.id')
+                 ->join('products', 'product_image.product_id', '=', 'products.id')
 
-                ->select('product_image.img')
+                ->select('product_image.*')
             
-                //  ->where( 'product_image.primary_img' , '=' , 'true')
+                  ->where( 'product_image.primary_img' , '=' , '1' , 'AND' , 'products', 'product_image.product_id', '=', 'products.id'  )
                 ->get();
 
         // dd($imagelist);

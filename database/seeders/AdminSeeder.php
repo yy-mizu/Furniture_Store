@@ -29,9 +29,6 @@ class AdminSeeder extends Seeder
             'status' => 'Active',
             
 
-
-
-
         ]);
     }
 }
