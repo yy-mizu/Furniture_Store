@@ -92,7 +92,7 @@ class LoginController extends Controller
                 $user = auth('customer')->user();
                 if($user->status == "Active"){
                     return redirect()->route('home');
-                }
+                } 
                 else{
                     Auth::logout();
                     return redirect()->route('customer.login')->with('error','You don\'t have Customer Account Access!');

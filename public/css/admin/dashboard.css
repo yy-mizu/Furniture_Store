@@ -1,24 +1,19 @@
-*{
-    font-family: Quicksand;
-}
+
 .main-page-wrapper
 {
     display: grid;
     grid-template-columns: 15% 85%;
-    width: 90%;
-    margin: auto;
-    gap: 2%;
+    height: 100vh;
 
 }
 
 .navbar-wrapper
 {
-    width: 220px;
+    
     background-color: rgb(46,46,72);
-    left: 0;
-    top: 0;
+    
     height: 100%;
-    position: fixed;
+   
     display: flex;
     
 } 
@@ -90,11 +85,32 @@
 .admin-body-wrapper
 {
     display: flex;
+    width: 100%;
     flex-direction: column;
     gap: 1rem;
     padding-top: 1rem;
     padding-bottom: 5rem;
-    background-color: aquamarine;
+    background-color: rgb(56,56,84);
     
 } 
+.admin-body-container
+{
+    padding: 5px 20px 5px 20px;
+}
+.admin-body-navbar
+{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(46,46,72);
+    align-items: center;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+}
+
+.admin-body-navbar h3{
+    padding: 10px;
+    color: white;
+
+    margin-left: 10px;
+}
 

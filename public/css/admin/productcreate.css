@@ -1,0 +1,156 @@
+.drop-box {
+    width: 300px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    /* overflow: hidden; */
+    /* position: relative; */
+  }
+
+  .drop-box input {
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .drop-box label {
+    font-size: 16px;
+    color: #555;
+    /* z-index: 1; */
+  }
+
+  .preview {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: calc(100% - 20px);
+    max-height: calc(100% - 20px);
+    /* overflow: auto; */
+    padding: 10px;
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+  }
+
+  .preview img {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 5px;
+    /* position: relative; */
+  }
+
+  .preview .remove-btn {
+    /* position: absolute; */
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+    /* display: none; */
+  }
+
+  .preview img:hover + .remove-btn {
+    display: block;
+  }
+
+/* END OF DROP BOX */
+
+.add-product-wrapper
+{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+    height: 90%;
+    background-color: rgb(46,46,72);
+    border-radius: 10px;
+}
+
+.add-product-container
+{
+    padding: 10px 5rem 2rem 5rem;
+}
+.add-product-form
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-product-form.row
+{
+    display: grid;
+   
+    width: 80%;
+    margin-bottom: 1rem;
+}
+
+.add-product-form.row.one{
+
+    grid-template-columns: 30% 70%;
+    /* width: 100%; */
+    /* height: 300px; */
+    /* align-items: center; */
+
+
+}
+
+.add-product-form.row.three{
+
+    grid-template-columns: 30% 30% 30%;
+    /* width: 100%; */
+    /* height 300px; */
+    align-items: center;
+
+
+}
+
+.drop-box-container
+{
+    display: flex;
+}
+
+.input-field-container
+{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-around;
+    width: 80%;
+
+}
+
+.input-field
+{
+    display: flex;
+    flex-direction: column;
+    /* gap: 1rem; */
+}
+
+.btn-field
+{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: left;
+}
+
+.btn-field button{
+    padding: 15px 50px 15px 50px;
+    
+}
+
+
