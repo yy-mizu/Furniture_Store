@@ -34,11 +34,11 @@
 
 
                 @foreach ($productlist as $product)
-                    @foreach ($imagelist as $image)
+             
                         <tr>
                             {{-- <td>{{ $product->image }}</td> --}}
 
-                            <td><img src="{{ asset('img/products/' . $image->img) }}" alt="" width="30px"></td>
+                            <td><img src="{{ asset('img/products/' . $product->img) }}" alt="" width="30px"></td>
                             {{-- @dd($image) --}}
 
                             <td>{{ $product->product_code }}</td>
@@ -50,15 +50,15 @@
                             <td>{{ $product->created_at }}</td>
 
                             <td>
-                                <a href="{{ url('/admin/productlist/update/' . $product->id) }}">
+                                <a href="{{ url('/admin/product/edit/' . $product->id) }}">
                                     <img src="{{ asset('img/admin/edit.svg') }}" alt="" width="20px">
                                 </a>
-                                <a href="{{ url('/admin/productlist/update/' . $product->id) }}">
+                                <a href="{{ url('/admin/product/delete/' . $product->id) }}">
                                     <img src="{{ asset('img/admin/trashbin.svg') }}" alt="" width="20px">
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+           
                 @endforeach
 
             </table>

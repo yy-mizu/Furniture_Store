@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Code;
 use App\Models\Product;
+use App\Models\Product_Image;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,21 +29,22 @@ class ProductController extends Controller
         ->join('codes', 'codes.id', '=', 'products.code_id')
         ->join('admins', 'admins.id', '=', 'products.admin_id')
         ->where('admins.id' , '=' , auth('admin')->user()->id)
-        ->select('products.*' , 'categories.name as category')
+        ->select('products.*' , 'categories.name as category' , 'product_image.*')
+        ->where( 'product_image.primary_img' , '=' , '1' , 'AND' , 'products', 'product_image.product_id', '=', 'products.id'  )
         ->get();
 
 // dd($productlist);
-        $imagelist =DB::table('product_image')
-                 ->join('products', 'product_image.product_id', '=', 'products.id')
+        // $imagelist =DB::table('product_image')
+        //          ->join('products', 'product_image.product_id', '=', 'products.id')
 
-                ->select('product_image.*')
+        //         ->select('product_image.*')
             
-                  ->where( 'product_image.primary_img' , '=' , '1' , 'AND' , 'products', 'product_image.product_id', '=', 'products.id'  )
-                ->get();
+        //           ->where( 'product_image.primary_img' , '=' , '1' , 'AND' , 'products', 'product_image.product_id', '=', 'products.id'  )
+        //         ->get();
 
         // dd($imagelist);
        
-        return view('admin.products', compact('productlist' , 'imagelist'));
+        return view('admin.products', compact('productlist' ));
     }
 
     public function create_product()
@@ -105,5 +107,13 @@ class ProductController extends Controller
 
         $response = $this->ProductImageRepository-> saveRecords($img , $uuid);
         return $response;
+    }
+
+    public function edit_product(int $id)
+    {
+        $productlist = Product::find($id);
+        $imagelist = Product_Image::find($id);
+
+        return view('Admin.product.create', compact('productlist' , 'imagelist' ) );
     }
 }

@@ -4,11 +4,27 @@
     Add Product
 @endsection
 @section('admin-body')
+
+@php
+  if(isset($productlist))
+  {
+    $updatedStatus = true;
+  }
+
+@endphp
+
+
     <div class="add-product-wrapper">
         <div class="add-product-container">
 
-            <form action="{{route('admin.product.create.process')}}" method="POST" class="add-product-form" enctype="multipart/form-data">
+            <form action="{{$updateStatus == true ? route('admin.product.edit.process') : route('admin.product.create.process') }}" method="POST" class="add-product-form" enctype="multipart/form-data">
                 @csrf
+                
+                @if ($updateStatus == true)
+                @method('PATCH')
+                @endif
+
+                <input type="hidden" name="id" value='{{ $updateStatus == true ? $stafflist->id : ''}}'>
 
                 <div class="add-product-form row one">
                     {{-- <div class="drop-box-container">
