@@ -1,0 +1,8 @@
+.category{
+    margin:2rem;
+    margin-top:4rem;
+}
+.left-nav{
+    display:flex;
+    gap:3rem;
+}

@@ -32,7 +32,7 @@
 
                 </tr>
 
-
+{{-- @dd($productlist) --}}
                 @foreach ($productlist as $product)
              
                         <tr>
@@ -50,10 +50,11 @@
                             <td>{{ $product->created_at }}</td>
 
                             <td>
-                                <a href="{{ url('/admin/product/edit/' . $product->id) }}">
+                                {{-- @dump($product) --}}
+                                <a href="{{ url('/admin/product/edit/'.$product->id) }}">
                                     <img src="{{ asset('img/admin/edit.svg') }}" alt="" width="20px">
                                 </a>
-                                <a href="{{ url('/admin/product/delete/' . $product->id) }}">
+                                <a href="{{ url('/admin/product/delete/'.$product->id) }}">
                                     <img src="{{ asset('img/admin/trashbin.svg') }}" alt="" width="20px">
                                 </a>
                             </td>

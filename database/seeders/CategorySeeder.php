@@ -19,11 +19,14 @@ class CategorySeeder extends Seeder
         $data = [
             [
                 'name' => "Bed ",
+                'admin_id' => '1',
+                'img' => asset('public/img/customer/homeGrid')
     
             ],
     
             [
                 'name' => "Lamp ",
+                'admin_id' => '1'
     
             ],
     

@@ -1,0 +1,99 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    /* font-size: 1.2rem; */
+    /* padding:4rem; */
+}
+
+.top-link{
+    margin:1% 0%;
+
+}
+.top-link a{
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.438);
+}
+.container{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:5rem;
+}
+
+
+form {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    margin:2rem 0;
+}
+form span{
+    color:red;
+}
+form input{
+    width: 100%;
+    height: 2rem;
+    margin:.5rem 0;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+/* input[type=number] {
+    -moz-appearance: textfield;
+} */
+
+form select{
+    width:100%;
+    height: 2rem;
+    margin: .5rem 0;
+}
+form textarea{
+    width:100%;
+    
+    margin: .5rem 0;
+}
+.order {
+    padding-top:4rem;
+
+}
+.order-detail{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:2rem;
+}
+.title{
+    grid-column-start: -3;
+        grid-column-end: -1;
+}
+.check{
+    grid-column-start:-3 ;
+    grid-column-end:-1;
+}
+.card{
+    grid-column-start: -3;
+    grid-column-end: -1;
+    text-align: ;
+}
+.card img{
+    width:8rem;
+    height:;
+}
+.button{
+    grid-column-start: -3;
+    grid-column-end: -1;
+    text-align: center;
+   
+}
+.button button{
+    background-color: black;
+    color:white;
+    width:40%;
+    padding:.9rem;
+}

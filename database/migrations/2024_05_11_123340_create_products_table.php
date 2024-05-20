@@ -13,9 +13,16 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained();
-            $table->foreignId('code_id')->constrained();
-            $table->foreignId('admin_id')->constrained();
+            $table->string('name');
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('code_id');
+            $table->unsignedBigInteger('supplier_id');
+
+            $table->foreign('category_id')->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on('categories');
+            $table->foreign('admin_id')->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on('admins');
+            $table->foreign('code_id')->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on('codes');
+            $table->foreign('supplier_id')->cascadeOnDelete()->cascadeOnUpdate()->references('id')->on('suppliers');
             $table->string('description');
             $table->integer('price');
             $table->integer('stock');

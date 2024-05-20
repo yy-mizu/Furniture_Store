@@ -1,0 +1,28 @@
+body{
+    background-color: white;
+}
+.form-container{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin:2rem 3rem;
+}
+
+form{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+}
+form span{
+    color:red;
+}
+form input{
+    width:60%;
+    height:2rem;
+}
+form button{
+    background-color: black;
+    color:white;
+    
+    width:5rem;
+    height:2rem;
+}

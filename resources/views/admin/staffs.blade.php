@@ -1,6 +1,6 @@
 @extends('layouts.adminLayout')
 
-
+{{-- @dd($stafflist) --}}
 @section('admin-body')
     <div class="staff-page">
 
@@ -16,7 +16,9 @@
             <table class="staff-table">
                 <tr>
                     <th style=" border-radius: 10px 0px 0px 10px;">Staff ID</th>
-                    <th></th>
+                    <th>
+                        <img src="{{ asset('img/admin/image.svg') }}" alt="">
+                    </th>
                     <th>Staff Name</th>
                     <th>Email</th>
                     <th>Adress</th>
@@ -33,7 +35,7 @@
                 @foreach ($stafflist as $staff)
                     <tr>
                         <td>{{ $staff->id }}</td>
-                        <td><img src="{{ asset('img/staff/' . $staff->image) }}" alt="" width="200"></td>
+                        <td><img src="{{ asset('img/staff/' . $staff->image) }}" alt="" width="80"></td>
                         <td>{{ $staff->name }}</td>
                         <td>{{ $staff->email }}</td>
                         <td>{{ $staff->address }}</td>
@@ -42,16 +44,20 @@
                         <td>{{ $staff->rolename }}</td>
                         <td>{{ $staff->status }}</td>
 
-                        <td><a href="{{ url('/admin/stafflist/update/' . $staff->id) }}">
+                        <td><a href="{{ url('/admin/staff/edit/' . $staff->id) }}">
                             <img src="{{asset('img/admin/edit.svg')}}" alt="">
                         </a></td>
-                        <td><a href="{{ url('/admin/stafflist/update/' . $staff->id) }}">
+                        <td><a href="{{ url('/admin/staff/edit/' . $staff->id) }}">
                             <img src="{{asset('img/admin/trashbin.svg')}}" alt="">
                         </a></td>
                     </tr>
                 @endforeach
 
             </table>
+
+            <div class="pagination">
+                {{$stafflist->withQueryString()->links('pagination::bootstrap-5') }}
+            </div>
         </div>
     </div>
 @endsection
