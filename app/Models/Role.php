@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use HasFactory;
+
+    public function admin()
+    {
+        return $this->hasOne('App\Models\Admin');
+    }
 }

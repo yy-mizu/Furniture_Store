@@ -15,7 +15,7 @@
                 <tr>
                     <th style=" border-radius: 10px 0px 0px 10px;">Staff ID</th>
                     <th>Image</th>
-                    <th>Staff Name</th>
+                    <th>Customer Name</th>
                     <th>Email</th>
                     <th>Adress</th>
                     <th>Phone</th>
@@ -32,9 +32,8 @@
                         <td><img src="{{ asset('img/staff/' . $customer->image) }}" alt="" width="200"></td>
                         <td>{{ $customer->name }}</td>
                         <td>{{ $customer->email }}</td>
-                        <td>{{ $staff->address }}</td>
-                        <td>{{ $customer->age }}</td>
-
+                        <td>{{ $customer->address }}</td>
+                        <td>{{ $customer->phone }}</td>
                         <td>{{ $customer->status }}</td>
 
                         <td><a href="{{ url('/admin/customerlist/update/' . $customer->id) }}">Edit</a></td>

@@ -1,0 +1,63 @@
+.dashboard-page
+{
+    /* background-color: rgb(46,46,72); */
+    border-radius: 10px;
+    height: 100%;
+   
+}
+
+
+
+
+
+.dashboard-wrapper
+{
+    grid-template-columns: 70% 30%;
+}
+
+.dashboardrow.one 
+{
+    display: flex;
+
+}
+
+.dashboardrow.two 
+{
+    display: flex;
+    margin-bottom: 1rem;
+
+}
+.box
+{
+    width: 360px;
+    height: 110px;
+    background-color: rgb(46,46,72);
+    margin-right: 20px;
+    display: flex;
+    margin-bottom: 1rem;
+   
+}
+
+.box .content
+{
+    color: rgb(229, 225, 225);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    
+}
+
+.bar-chart
+{
+    width: 740px;
+    background-color: rgb(46,46,72);
+    margin-right: 20px;
+}
+.pie-chart
+{
+    width: 360px;
+    background-color: rgb(46,46,72);
+   
+}

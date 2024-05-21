@@ -26,12 +26,17 @@
     <link rel="stylesheet" href="{{ asset('css/admin/supplier.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/admin/suppliercreate.css') }}" type="text/css">
 
+    <link rel="stylesheet" href="{{ asset('css/admin/order.css') }}" type="text/css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
     <title>@yield('title')</title>
+    <script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
 </head>
 
 <body>
@@ -54,7 +59,7 @@
                     <ul class="navbar-item-container">
 
                         <li  class="navbar-item">
-                            <a href="" class="navbar-link" class="navbar-link">
+                            <a href="{{route('admin.dashboard')}}" class="navbar-link" class="navbar-link">
                                
                                     <img src="{{ asset('img/admin/dashboard.png') }}" alt="">
 
@@ -123,6 +128,16 @@
                                     <img src="{{ asset('img/admin/supplier.png') }}" alt="" style="color: white">
 
                                     <h5>Suppliers</h5>
+                                
+                            </a>
+                        </li>
+
+                        <li class="navbar-item">
+                            <a href="{{ route('admin.logout') }}" class="navbar-link">
+                             
+                                    <img src="{{ asset('img/admin/logout.png') }}" alt="" style="color: white">
+
+                                    <h5>Logout</h5>
                                 
                             </a>
                         </li>

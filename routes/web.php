@@ -16,14 +16,20 @@ Route::get('/', [CustomerController::class, 'home'])->name('customer.home');
 
 Route::get('/customer/account', [CustomerController::class, 'account'])->name('customer.account');
 
+
+Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::post('/admin/login/process', [LoginController::class, 'login'])->name('admin.login.process');
 Route::middleware(['admin'])->group(function () {
+
+   
+    Route::get('/admin/logout', [LoginController::class, 'AdminLogout'])->name('admin.logout');
+
     Route::get('/admin/dashboard/orderlist', [AdminController::class, 'order_list'])->name('admin.orderlist');
     Route::get('/admin/dashboard/customerlist', [AdminController::class, 'customer_list'])->name('admin.customerlist');
 
    
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
-    Route::post('/admin/login/process', [LoginController::class, 'login'])->name('admin.login.process');
+
 
     //FOR ADMINS
     Route::get('/admin/dashboard/stafflist', [AdminController::class, 'staff_list'])->name('admin.stafflist');
@@ -58,6 +64,8 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/supplier/edit/{id}', [AdminController::class, 'edit_supplier'])->name('admin.supplier.edit');
     Route::patch('/admin/supplier/edit/process', [AdminController::class, 'edit_supplier_process'])->name('admin.supplier.edit.process');
     
+    //FOR ORDER
+    Route::get('/admin/orderlist', [AdminController::class, 'order_list'])->name('admin.orderlist');
 });
 
 

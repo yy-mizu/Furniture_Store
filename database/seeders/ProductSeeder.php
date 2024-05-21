@@ -8,27 +8,46 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class AdminSeeder extends Seeder
+class ProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $uuid = Str::uuid()->toString();
-        DB::table('products')->insert([
-            'name' => "super",
-            'email' => 'super@gmail.com',
-            'address' => 'Yangon',
-            'age' => 33,
-            'phone' => '09788892615',
-            'role_id' => '1',
-            'password' => bcrypt('1111'),
-            'uuid' => $uuid,
-            'image' => '-',
-            'status' => 'Active',
-            
 
-        ]);
+        $data = [
+            [
+                
+                'name'=> 'AK47',
+                'category_id'=> '1',
+                'admin_id'=>'1',
+                'code_id'=>'1',
+                'supplier_id'=>'2',
+                'description'=>'aaa',
+                'price'=>'1200',
+                'stock'=>'999',
+                'uuid' =>'null',
+                'created_at' => Carbon::now(),
+                'product_code' =>'AK-47'
+            ],
+
+            [
+                'name'=> 'M416',
+                'category_id'=> '1',
+                'admin_id'=>'1',
+                'code_id'=>'1',
+                'supplier_id'=>'2',
+                'description'=>'aaa',
+                'price'=>'1400',
+                'stock'=>'999',
+                'uuid' => '',
+                'created_at' => Carbon::now(),
+                'product_code' =>'M-4'
+            ]
+
+        ];
+        $uuid = Str::uuid()->toString();
+        DB::table('products')->insert($data);
     }
 }

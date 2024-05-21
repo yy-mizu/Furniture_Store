@@ -127,6 +127,12 @@
                     <button type="submit">
                         Submit
                     </button>
+
+                    <button style="background-color: orange">
+                      <a href="{{route('admin.productlist')}}">
+                        Cancel
+                      </a>
+                  </button>
                 </div>
 
             </form>

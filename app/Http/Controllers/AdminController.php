@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Role;
 use App\Models\Supplier;
@@ -20,8 +21,14 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-
-          return view('admin.dashboard' );
+        $orderlist = DB::table('orders')
+                     ->leftjoin('customers', 'customers.id', '=', 'orders.customer_id')
+                     ->join('order_products' , 'order_products.order_id' , 'orders.id')
+                     ->join('products'  , 'products.id', '=' , 'order_products.product_id')
+                     ->select('orders.*' , 'products.name as productname' , 'order_products.quantity as order_quantity',
+                            'order_products.created_at as date')
+                     ->get();
+          return view('admin.dashboard' , compact('orderlist') );
     }
 
 
@@ -191,6 +198,29 @@ class AdminController extends Controller
         return redirect()->route('admin.supplierlist');
     }
 
+
+
+
+    //FOR ORDERS
+    public function order_list()
+    {
+        $orderlist = DB::table('orders')
+                     ->leftjoin('customers', 'customers.id', '=', 'orders.customer_id')
+                     ->join('order_products' , 'order_products.order_id' , 'orders.id')
+                     ->join('products'  , 'products.id', '=' , 'order_products.product_id')
+                     ->select('orders.*' , 'products.name as productname' , 'order_products.quantity as order_quantity',
+                            'order_products.created_at as date')
+                     ->get();
+        
+        // $order_product =DB::table('order_products')
+        //                 ->leftJoin('products' , 'products.id', '=' , 'order_products.product_id') 
+        //                 ->select('order_products.*')
+        //                 ->get();
+
+                    
+
+        return view('admin.orderlist' ,compact('orderlist'));
+    }
     
  
 }

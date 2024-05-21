@@ -65,7 +65,7 @@ class LoginController extends Controller
 
         if($input['usertype'] == 'admin')
         {
-            if(auth('admin') ->attempt($userdata))
+            if(auth('admin')->attempt($userdata))
             {
                 $user = auth('admin')->user();
                 if($user->status =='Active')
@@ -80,7 +80,7 @@ class LoginController extends Controller
 
             else
             {
-                Auth::login();
+                // Auth::login();
                 return redirect()->route('admin.login')->with('error' , 'Wrong Email and Password');
             }
         }
