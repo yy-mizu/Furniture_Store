@@ -27,7 +27,7 @@ body{
 
 .row{
     
-    display:grid;
+    /* display:grid; */
     grid-template-columns: 5% 12% 17% 17% 17% 16% 16%; 
     text-align: center;
     align-items:center;

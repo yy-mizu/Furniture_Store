@@ -132,6 +132,17 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                             </a>
                         </li>
 
+                        {{-- <li class="navbar-item">
+                            <a href="{{ route('admin.blog') }}" class="navbar-link">
+                             
+                                    <img src="{{ asset('img/admin/supplier.png') }}" alt="" style="color: white">
+
+                                    <h5>Suppliers</h5>
+                                
+                            </a>
+                        </li> --}}
+                        
+
                         <li class="navbar-item">
                             <a href="{{ route('admin.logout') }}" class="navbar-link">
                              
@@ -141,6 +152,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                                 
                             </a>
                         </li>
+
+                        
                     </ul>
                 </div>
                 </div>

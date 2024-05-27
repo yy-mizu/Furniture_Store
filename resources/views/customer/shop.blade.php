@@ -1,9 +1,9 @@
 @extends('layouts.customerLayout')
 @section('title','shop || furniture')
 @section('content')
-
-    <section class="shop-slider">
-        <div class="container">
+{{-- @dd($products[0]->photos[0]->img) --}}
+<section class="shop-slider">
+        <div class="slide-container">
             <div class="slider-wrapper">
                 <button id="prev-slide" class="slide-button ">
                     <img src="{{asset('/img/customer/previous-svgrepo-com 1.svg')}}" alt="">
@@ -54,17 +54,29 @@
             </div>
         </div>
         <div class="shop-card-container">
+
+            @foreach ($products as $product)
+            @foreach ($product->photos as $photo)
+                
+            
+                
+         {{-- @dd( $product->photo->img) --}}
+         <a class="card-link" href="{{url('/detail/'.$product->id)}}" style="text-decoration: none;
+            color:black">
             <div class="shop-card">
                 <div class="shop-card-image">
-                    <img src="{{asset('/img/customer/shopImage1.png')}}" alt="">
+                    <img src="{{asset('/img/products/'. $photo->img)}}" alt="">
                     <span class="upperSpan hot">Hot</span>
                 </div>
                 <div class="shop-card-content">
-                    <p>Globe Electric Tech Series</p>
-                    <p>$460.00</p>
+                    <p>{{$product->name}}</p>
+                    <p>{{$product->price}}</p>
                 </div>
             </div>
-            <div class="shop-card">
+         </a>
+            @endforeach
+            @endforeach
+            {{-- <div class="shop-card">
                 <div class="shop-card-image">
                     <img src="{{asset('/img/customer/shopImage2.png')}}" alt="">
                 </div>
@@ -208,7 +220,7 @@
                     <p>Modern Side Table</p>
                     <p>$500.00</p>
                 </div>
-            </div>
+            </div> --}}
            
         </div> 
         <div class="loadMore">

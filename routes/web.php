@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', [CustomerController::class, 'home'])->name('customer.home');
+Route::get('/detail/{id}', [CustomerController::class, 'detail'])->name('customer.product.detail');
 Route::get('/shop', [CustomerController::class, 'shop'])->name('customer.shop');
-Route::get('/', [CustomerController::class, 'home'])->name('customer.home');
+
 
 Route::get('/customer/account', [CustomerController::class, 'account'])->name('customer.account');
 
@@ -74,6 +75,7 @@ Route::middleware(['admin'])->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/fetch-products/category}', [App\Http\Controllers\CustomerController::class, 'fetch_category_new_products'])->name('fetch_category_new_products');
 
 Route::post('upload',  [UploadController::class, 'store'])->name('upload.store');
 Route::post('delete', [UploadController::class, 'delete'])->name('upload.delete');

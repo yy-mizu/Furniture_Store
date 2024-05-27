@@ -26,7 +26,8 @@ class CategorySeeder extends Seeder
     
             [
                 'name' => "Lamp ",
-                'admin_id' => '1'
+                'admin_id' => '1',
+                'img' => asset('public/img/customer/homeGrid')
     
             ],
     

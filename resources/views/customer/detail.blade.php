@@ -1,6 +1,8 @@
 @extends('layouts.customerLayout')
 @section('title','detail || furniture')
 @section('content')
+
+{{-- @dd($product) --}}
 <section class="detail-section">
         <div class="link-connect">
             <span>Home</span>
@@ -9,35 +11,33 @@
             <span>Modway Olivia Bed</span>
         </div>
         <div class="detail">
-            <div class="detail-img">
-                <img src="{{asset('/image/customer/detail.png')}}" alt="">
+            <div class="detail-img" style="padding-top: 20%">
+                <img src="{{asset('/img/products/'.$product->photos[0]->img)}}" alt="" width="70%">
             </div>
-            <div class="detail-content">
-                <h1>Modway Olivia Bed</h1>
-                <p>$1,200.00</p>
-                <p>The All in One Fully Upholstered Shelter Queen Bed upholstered bed is designed to add a contemporary flair to
-                    many of today’s modern homes. The button tufted headboard is inset w/ two wings, giving it a contemporary
-                    shelter feel. Also features a matching low profile footboard and hinged / folding side rails. </p>
+            <div class="detail-content"  style="padding-top: 20%">
+                <h1>{{$product->name}}</h1>
+                <p>${{$product->price}}</p>
+                <p>{{$product->description}} </p>
                 <div class="btn-gp">
                     <input type="number" value="1">
                     <a href="">Add to cart</a>
                     <input type="text">
                     <input type="text">
                 </div>
-                <p>SKU: BE-006</p>
-                <p>Categories: Bed</p>
+                <p>SKU:{{$product->product_code}}</p>
+                <p>Categories: {{$product->category->name}}</p>
                 <p>Tags: theme-sky, upstore, WooCommerce, WordPress</p>
                 <div class="social">
-                    <img src="{{asset('/image/customer/detail-facebook.png')}}" alt="">
-                    <img src="{{asset('/image/customer/detail-twitter.png')}}" alt="">
-                    <img src="{{asset('/image/customer/detail-pinterest.png')}}" alt="">
-                    <img src="{{asset('/image/customer/detail-linkin.png')}}" alt="">
-                    <img src="{{asset('/image/customer/detail-reddit.png')}}" alt="">
+                    <img src="{{asset('/img/customer/detail-facebook.png')}}" alt="">
+                    <img src="{{asset('/img/customer/detail-twitter.png')}}" alt="">
+                    <img src="{{asset('/img/customer/detail-pinterest.png')}}" alt="">
+                    <img src="{{asset('/img/customer/detail-linkin.png')}}" alt="">
+                    <img src="{{asset('/img/customer/detail-reddit.png')}}" alt="">
                 </div>
             </div>
             <div class="detail-img-view">
-                <img src="{{asset('/image/customer/detail-side-view.png')}}" alt="">
-                <img src="{{asset('/image/customer/detail-front-view.png')}}" alt="">
+                <img src="{{asset('/img/customer/detail-side-view.png')}}" alt="">
+                <img src="{{asset('/img/customer/detail-front-view.png')}}" alt="">
             </div>
         </div>
 
