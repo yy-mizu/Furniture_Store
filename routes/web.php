@@ -86,8 +86,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/fetch-products/category}', [App\Http\Controllers\CustomerController::class, 'fetch_category_new_products'])->name('fetch_category_new_products');
 
-Route::post('upload',  [UploadController::class, 'store'])->name('upload.store');
-Route::post('delete', [UploadController::class, 'delete'])->name('upload.delete');
+// Route::post('upload',  [UploadController::class, 'store'])->name('upload.store');
+// Route::post('delete', [UploadController::class, 'delete'])->name('upload.delete');
 
 Route::post('/session', [StripePaymentController::class, 'session'])->name('session');
 Route::get('/success', [StripePaymentController::class, 'success'])->name('success');
