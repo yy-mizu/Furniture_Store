@@ -19,10 +19,16 @@
                 <p>${{$product->price}}</p>
                 <p>{{$product->description}} </p>
                 <div class="btn-gp">
-                    <input type="number" value="1">
-                    <a href="">Add to cart</a>
-                    <input type="text">
-                    <input type="text">
+                    <form action="{{ route('add_to_cart') }}" method="POST">
+                        @csrf <!-- CSRF token for Laravel -->
+                        <div class="btn-gp">
+                            <input type="number" name="quantity" value="1" min="1"> <!-- Ensure the name attribute is set -->
+                            <input type="hidden" name="id" value="{{ $product->id }}"> <!-- Pass the product ID as a hidden input -->
+                            <button type="submit">Add to cart</button>
+                            <a href="">Buy Now</a>
+                        </div>
+                    </form>
+                    
                 </div>
                 <p>SKU:{{$product->product_code}}</p>
                 <p>Categories: {{$product->category->name}}</p>

@@ -8,6 +8,7 @@ use App\Models\Product_Image;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class CustomerController extends Controller
 {
@@ -119,6 +120,74 @@ class CustomerController extends Controller
        $products = Product::with('category', 'photos')->get();
 
         return view('customer.shop', compact('products') );
+    }
+    public function cart()
+
+    {
+        return view('customer.cart');
+    }
+    public function addtocart(Request $request)
+    {
+        // $request->session()->flush();
+        // dd($request);
+        $id = $request->id;
+        $products = Product::with(['category', 'photos'])->where('products.id','=', $id)->firstOrFail();
+
+        $cart = session()->get('cart' , []);
+
+       
+        // dd($products->photos[0]->img);
+   
+        if(isset($cart[$id]))
+        {
+            $cart[$id]['quantity']++;
+        }else{
+            $cart[$id] = [
+                'product_name' => $products->name,
+                    'img' => $products->photos[0]->img,
+                    'quantity' => $request->quantity,
+                    'price' => $products->price,
+                    
+    
+            ];
+        }
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product add to cart successfully!');
+    
+    }
+
+    public function updatecart(Request $request)
+    {
+        // dd($request->quantity);
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart successfully updated!');
+        }
+    }
+  
+    public function removecart(Request $request)
+    {
+        if($request->id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product successfully removed!');
+        }
+    }
+
+    public function clearcart()
+    {
+        
+            $cart = session()->get('cart');
+            if(isset($cart)) {
+               session()->flush();
+            }
+            session()->flash('success', 'Product successfully removed!');
+        
     }
 
     

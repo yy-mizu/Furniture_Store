@@ -32,13 +32,14 @@
 .btn-gp{
     display:flex;
     gap:1rem;
+    align-items: center;
 }
 .btn-gp input{
     width:3rem;
     height: 2.5rem;
     
 }
-.btn-gp a{
+.btn-gp button{
     width:10rem;
     background-color: black;
     color:white;
@@ -46,6 +47,9 @@
     display:flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    height: 2.5rem;
+  
 }
 .social{
     margin-top: 1rem;
@@ -170,4 +174,98 @@
     display:flex;
     flex-direction: column;
     align-items: center;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    /* background-color: red; */
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 300px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-top: 1px solid black;
+   
+    
+    overflow-y: auto;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    /* max-height: calc(100px * 3); */
+}
+
+.cart-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    display: flex;
+    flex-direction: column;
+  
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 10px;
+    height: 100px;
+}
+
+.item-info {
+    padding: 10px 0px;
+    width: 100px;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.cart-total {
+    padding: 10px;
+    text-align: right;
+}
+
+.view-all-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.view-all-btn:hover {
+    background-color: #555;
+}
+
+.cart-blank
+{
+    min-height: 50px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+}
+.cart-blank p{
+    font-size: small;
 }

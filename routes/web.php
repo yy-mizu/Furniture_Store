@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,6 +72,12 @@ Route::middleware(['admin'])->group(function () {
 
 
 
+Route::get('/cart', [App\Http\Controllers\CustomerController::class, 'cart'])->name('customer.cart');
+Route::post('add-to-cart/', [CustomerController::class, 'addtocart'])->name('add_to_cart');
+Route::patch('update-cart', [CustomerController::class, 'updatecart'])->name('update_cart');
+Route::delete('remove-from-cart', [CustomerController::class, 'removecart'])->name('remove_from_cart');
+Route::delete('clear-cart', [CustomerController::class, 'clearcart'])->name('clear_cart');
+
 
 Auth::routes();
 
@@ -80,3 +87,7 @@ Route::get('/fetch-products/category}', [App\Http\Controllers\CustomerController
 Route::post('upload',  [UploadController::class, 'store'])->name('upload.store');
 Route::post('delete', [UploadController::class, 'delete'])->name('upload.delete');
 
+Route::post('/session', [StripePaymentController::class, 'session'])->name('session');
+Route::get('/success', [StripePaymentController::class, 'success'])->name('success');
+
+Route::get('/cancel', [StripePaymentController::class, 'cancel'])->name('cancel');
