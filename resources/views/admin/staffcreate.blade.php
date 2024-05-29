@@ -69,7 +69,7 @@
                             width="150px">
                             @else
                               
-                              <input type="file" name="img" multiple>
+                              <input type="file" name="img" multiple required>
                             @endif
                             {{-- <label for="fileInput">Choose Image</label> --}}
                         </div>
@@ -99,7 +99,7 @@
                         <div class="input-field">
                             <label for="password">Password:</label>
                             <input type="password" style="width: 100% " name="password"
-                            value="{{$updateStatus == true ? $staff_data->password : '' }}">
+                            value="{{$updateStatus == true ? $staff_data->password : '' }}" required>
                         </div>
                         @endif
                     </div>

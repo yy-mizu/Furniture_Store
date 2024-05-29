@@ -27,7 +27,11 @@ if (isset($category_data)) {
                     <div class="input-field">
                         <label for="name">Name:</label>
                         <input type="text" style="width: 100% " name="name" value='{{ $updateStatus == true ? $category_data->name : '' }}''>
-
+                        @if (session('error'))
+                        <small style="color: red;
+                                     margin-bottom: 1rem"
+                                     >{{ session('error') }} </small> 
+                     @endif
                        
                         @if($updateStatus == true) 
                         

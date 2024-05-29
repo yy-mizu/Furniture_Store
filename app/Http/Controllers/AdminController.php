@@ -10,7 +10,9 @@ use App\Models\Role;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -65,6 +67,25 @@ class AdminController extends Controller
 
     public function create_staff_process(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => [
+                'required',
+                Rule::unique('admins')->ignore($request->id),
+            ],
+            'image' => 'required|image|max:2048',
+            'email' => 'required|email|unique:admins,email',
+            'phone' => 'required|numeric',
+            'age' => 'required|numeric',
+            'address' => 'required',
+            'password' => 'required|string|min:8',
+           
+        ]);
+
+        if ($validator->fails()) {
+            // Handle validation failure (e.g., return an error response)
+            return redirect()->back()->with('error' , 'Invalid Category');
+        }
+
         // dd($request->img);
         $uuid  = Str::uuid()->toString();
         $img = $uuid.'.'.$request->img->extension();

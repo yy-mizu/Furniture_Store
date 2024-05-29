@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Rules\UniqueName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
 class CategoryController extends Controller
 {
@@ -30,6 +34,25 @@ class CategoryController extends Controller
 
     public function create_category_process(Request $request)
     {
+
+       
+
+
+        $validator = FacadesValidator::make($request->all(), [
+            'name' => [
+                'required',
+                Rule::unique('categories')->ignore($request->id),
+            ],
+            'image' => 'required|image|max:2048',
+           
+        ]);
+
+        if ($validator->fails()) {
+            // Handle validation failure (e.g., return an error response)
+            return redirect()->back()->with('error' , 'Invalid Category');
+        }
+
+
         $uuid  = Str::uuid()->toString();
         $img = $uuid.'.'.$request->img->extension();
         $request->img->move(public_path('img/category'), $img);
@@ -54,6 +77,21 @@ class CategoryController extends Controller
     }
     public function edit_category_process(Request $request)
     {
+
+        $validator = FacadesValidator::make($request->all(), [
+            'name' => [
+                'required',
+                Rule::unique('categories')->ignore($request->id),
+            ],
+            'image' => 'required|image|max:2048',
+           
+        ]);
+
+        if ($validator->fails()) {
+            // Handle validation failure (e.g., return an error response)
+            return redirect()->back()->with('error' , 'Invalid Category');
+        }
+        
         $category = Category::find($request->id);
         $category->name = $request->name;
         $category->description = $request->description;
