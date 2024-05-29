@@ -121,6 +121,35 @@ class CustomerController extends Controller
 
         return view('customer.shop', compact('products') );
     }
+    public function blogs()
+    {
+        // $grid_items =  Category::whereIn('name', ['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet'])->withCount('products')
+        // ->get();
+    
+       $products = Product::with('category', 'photos')->get();
+
+        return view('customer.blog', compact('products') );
+    }
+
+    public function about()
+    {
+        // $grid_items =  Category::whereIn('name', ['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet'])->withCount('products')
+        // ->get();
+    
+       $products = Product::with('category', 'photos')->get();
+
+        return view('customer.story', compact('products') );
+    }
+
+    public function contact()
+    {
+        // $grid_items =  Category::whereIn('name', ['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet'])->withCount('products')
+        // ->get();
+    
+       $products = Product::with('category', 'photos')->get();
+
+        return view('customer.contact', compact('products') );
+    }
     public function cart()
 
     {

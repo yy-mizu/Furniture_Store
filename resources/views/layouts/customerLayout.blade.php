@@ -66,7 +66,7 @@
                             <div class="column">
                                 <h3>CATEGORY ONE </h3>
                                 <div class="column">
-                                    <a href="#">Bed</a>
+                                    <a href="">Bed</a>
                                     <a href="#">Cabinet</a>
                                     <a href="#">Sofa</a>
                                     <a href="#">Kitchen</a>
@@ -84,10 +84,10 @@
                     </div>
                 </div>
 
-                <a href="">Blog</a>
-                <a href="">About Us</a>
+                <a href="{{ route('customer.blogs') }}">Blog</a>
+                <a href="{{ route('customer.about') }}">About Us</a>
 
-                <a href="">Contact</a>
+                <a href="{{ route('customer.contact') }}">Contact</a>
             </div>
         </div>
 
