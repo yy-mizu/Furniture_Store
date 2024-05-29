@@ -22,18 +22,18 @@
                 @if ($updateStatus == true)
                     @method('PATCH')
                 @endif
-                <input type="hidden" name="id" value='{{ $updateStatus == true ? $staff_data->id : '' }}'>
+                <input type="hidden" name="id" value='{{ $updateStatus == true ? $staff_data->id : '' }}' required>
                 <div class="row one">
                     <div class="input-field">
                         <label for="name">Name:</label>
                         <input type="text" style="width: 100% " name="name"
-                            value="{{ $updateStatus == true ? $staff_data->name : '' }}">
+                            value="{{ $updateStatus == true ? $staff_data->name : '' }}" required>
                     </div>
 
                     <div class="input-field">
                         <label for="age">Age:</label>
                         <input type="number" name="age" style="width: 100% "
-                            value="{{ $updateStatus == true ? $staff_data->age : '' }}">
+                            value="{{ $updateStatus == true ? $staff_data->age : '' }}" required>
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                     <div class="input-field">
                         <label for="address">Address:</label>
                         <input type="text" style="width: 100% " name="address"
-                            value="{{ $updateStatus == true ? $staff_data->address : '' }}">
+                            value="{{ $updateStatus == true ? $staff_data->address : '' }}" required>
                     </div>
                 </div>
 
@@ -49,13 +49,13 @@
                     <div class="input-field">
                         <label for="phone">Phone:</label>
                         <input type="text" style="width: 100% " name="phone"
-                            value="{{ $updateStatus == true ? $staff_data->phone : '' }}">
+                            value="{{ $updateStatus == true ? $staff_data->phone : '' }}" required>
                     </div>
 
                     <div class="input-field">
                         <label for="email">Email:</label>
                         <input type="email" name="email" style="width: 100% "
-                            value="{{ $updateStatus == true ? $staff_data->email : '' }}">
+                            value="{{ $updateStatus == true ? $staff_data->email : '' }}" required>
                     </div>
                 </div>
 

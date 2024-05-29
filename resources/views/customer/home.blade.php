@@ -1,7 +1,7 @@
 @extends('layouts.customerLayout')
 
-{{-- @dd($grid_items[1]['products_count']) --}}
-{{-- @dd($bedlist) --}}
+
+{{-- @dd(is_array($grid_items)) --}}
 @section('title', 'Home')
 
 @section('content')
@@ -40,7 +40,7 @@
 
     <section class="home-grid">
         {{-- @foreach($grid_items as $item) --}}
-    @if(isset($grid_items))
+        @if(isset($grid_items) && is_array($grid_items) && array_key_exists(0, $grid_items))
         <div class="bed home-gird-card">
             <div class="home-grid-text">
                 <b>{{$grid_items[0]['name']}}</b>

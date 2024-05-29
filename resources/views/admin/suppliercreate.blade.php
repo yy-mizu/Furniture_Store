@@ -27,10 +27,10 @@
 
                     <div class="input-field">
                         @if ($updateStatus == true)
-                            <img src="{{ asset('img/supplier/' . $supplier_data->image) }}" alt="" width="150px">
+                            <img src="{{ asset('img/supplier/' . $supplier_data->img) }}" alt="" width="150px">
                         @else
                             <label for="img">Choose Image For Supplier</label>
-                            <input type="file" name="img" multiple>
+                            <input type="file" name="img" multiple required>
                         @endif
                         {{-- <label for="fileInput">Choose Image</label> --}}
                     </div>
@@ -38,7 +38,7 @@
                     <div class="input-field">
                         <label for="name">Name:</label>
                         <input type="text" style="width: 100% " name="name"
-                            value="{{ $updateStatus == true ? $supplier_data->name : '' }}">
+                            value="{{ $updateStatus == true ? $supplier_data->name : '' }}" required>
                     </div>
                     {{-- <div class="staffimg-preview" id="preview"></div> --}}
                 </div>
@@ -51,7 +51,7 @@
         <div class="add-supplier-form row two">
             <div class="input-field">
                 <label for="address">Address:</label>
-                <textarea type="text" style="width: 100% " name="address">{{ $updateStatus == true ? $supplier_data->address : '' }}</textarea>
+                <textarea type="text" style="width: 100% " name="address" required>{{ $updateStatus == true ? $supplier_data->address : '' }}</textarea>
             </div>
         </div>
 
@@ -59,13 +59,13 @@
             <div class="input-field">
                 <label for="phone">Phone:</label>
                 <input type="text" style="width: 100% " name="phone"
-                    value="{{ $updateStatus == true ? $supplier_data->phone : '' }}">
+                    value="{{ $updateStatus == true ? $supplier_data->phone : '' }}" required>
             </div>
 
             <div class="input-field">
                 <label for="email">Email:</label>
                 <input type="email" name="email" style="width: 100% "
-                    value="{{ $updateStatus == true ? $supplier_data->email : '' }}">
+                    value="{{ $updateStatus == true ? $supplier_data->email : '' }}" required>
             </div>
         </div>
 

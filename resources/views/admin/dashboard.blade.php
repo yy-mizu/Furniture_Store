@@ -1,5 +1,5 @@
 @extends('layouts.adminLayout')
-
+@section('admin-body-navbar-title' , 'Dashboard')
 
 
 @section('admin-body')
@@ -44,19 +44,20 @@
                             data: {
                                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
                                 datasets: [{
-                                        label: 'Profit',
+                                        label: 'Monthly Sales',
                                         data: [18000, 22000, 19000, 12000, 22000, 25000, 22000, 22000, 22000],
                                         backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color for profit bars
                                         borderColor: 'rgba(75, 192, 192, 1)', // Border color for profit bars
                                         borderWidth: 1
-                                    },
-                                    {
-                                        label: 'Loss',
-                                        data: [11000, 10000, 9000, 2000, 19000, 5000, 2000, 2000, 1500],
-                                        backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color for loss bars
-                                        borderColor: 'rgba(255, 99, 132, 1)', // Border color for loss bars
-                                        borderWidth: 1
                                     }
+                                    // },
+                                    // {
+                                    //     label: 'Loss',
+                                    //     data: [11000, 10000, 9000, 2000, 19000, 5000, 2000, 2000, 1500],
+                                    //     backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color for loss bars
+                                    //     borderColor: 'rgba(255, 99, 132, 1)', // Border color for loss bars
+                                    //     borderWidth: 1
+                                    // }
                                 ]
                             },
                             options: {

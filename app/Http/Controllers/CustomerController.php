@@ -97,7 +97,7 @@ class CustomerController extends Controller
         ->get();
 
 
-        return view('customer.home' , compact('grid_items' ,
+        return view('customer.home' , compact( 'grid_items',
          'bedlist', 'sofalist' , 'tablelist','cablist','lamplist','category_list'));
     }
 
