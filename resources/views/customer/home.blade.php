@@ -40,13 +40,13 @@
 
     <section class="home-grid">
         {{-- @foreach($grid_items as $item) --}}
+    @if(isset($grid_items))
         <div class="bed home-gird-card">
             <div class="home-grid-text">
                 <b>{{$grid_items[0]['name']}}</b>
                 <p>{{$grid_items[0]['products_count']}}</p>
             </div>
            
-            
             <img src="img/customer/homeGrid1.png" alt="">
         </div>
         <div class="sofa home-gird-card">
@@ -80,6 +80,8 @@
             
             <img src="img/customer/homeGrid5.png" alt="">
         </div>
+
+        @endif
         {{-- @endforeach --}}
         <a>
             Explore more
