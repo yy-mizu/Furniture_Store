@@ -93,7 +93,7 @@ class CustomerController extends Controller
         $category_list = Category::whereIn('name', ['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet']);
 
         
-        $grid_items =  Category::whereIn('name', ['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet'])->withCount('products')
+        $grid_items =  Category::whereIn('name', ['jojo'])->withCount('products')
         ->get();
 
 

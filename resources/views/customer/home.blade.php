@@ -1,7 +1,7 @@
 @extends('layouts.customerLayout')
 
 
-{{-- @dd(is_array($grid_items)) --}}
+{{-- @dd($grid_items->isEmpty()) --}}
 @section('title', 'Home')
 
 @section('content')
@@ -40,7 +40,7 @@
 
     <section class="home-grid">
         {{-- @foreach($grid_items as $item) --}}
-        @if(isset($grid_items) && is_array($grid_items) && array_key_exists(0, $grid_items))
+       @if(!$grid_items->isEmpty())
         <div class="bed home-gird-card">
             <div class="home-grid-text">
                 <b>{{$grid_items[0]['name']}}</b>
@@ -80,8 +80,8 @@
             
             <img src="img/customer/homeGrid5.png" alt="">
         </div>
-
-        @endif
+@endif
+      
         {{-- @endforeach --}}
         <a>
             Explore more
