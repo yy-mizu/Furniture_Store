@@ -10,15 +10,18 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 
-
+//FOR CUSTOMER
 Route::get('/', [CustomerController::class, 'home'])->name('customer.home');
 Route::get('/detail/{id}', [CustomerController::class, 'detail'])->name('customer.product.detail');
 Route::get('/shop', [CustomerController::class, 'shop'])->name('customer.shop');
 Route::get('/blogs', [CustomerController::class, 'blogs'])->name('customer.blogs');
 Route::get('/about', [CustomerController::class, 'about'])->name('customer.about');
 Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.contact');
-
 Route::get('/customer/account', [CustomerController::class, 'account'])->name('customer.account');
+Route::post('/customer/login/process', [LoginController::class, 'login'])->name('customer.login.process');
+Route::post('/customer/register/process', [CustomerController::class, 'register'])->name('customer.register.process');
+
+
 
 
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');

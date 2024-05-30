@@ -5,9 +5,7 @@
 <section class="shop-slider">
         <div class="slide-container">
             <div class="slider-wrapper">
-                <button id="prev-slide" class="slide-button ">
-                    <img src="{{asset('/img/customer/previous-svgrepo-com 1.svg')}}" alt="">
-                </button>
+               
                 <ul class="image-list">
                     <img class="image-item" src="{{asset('/img/customer/IMAGE(1).png')}}" alt="img-1" />
                     <img class="image-item" src="{{asset('/img/customer/IMAGE(2).png')}}" alt="img-2" />
@@ -20,9 +18,7 @@
                     <img class="image-item" src="{{asset('/img/customer/IMAGE(1).png')}}" alt="img-9" />
                     <img class="image-item" src="{{asset('/img/customer/IMAGE(2).png')}}" alt="img-10" />
                 </ul>
-                <button id="next-slide" class="slide-button">
-                    <img src="{{asset('/img/customer/previous-svgrepo-com 1(1).svg')}}" alt="">
-                </button>
+               
             </div>
         
         </div>

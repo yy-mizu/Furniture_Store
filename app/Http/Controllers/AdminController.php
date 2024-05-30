@@ -72,18 +72,41 @@ class AdminController extends Controller
                 'required',
                 Rule::unique('admins')->ignore($request->id),
             ],
-            'image' => 'required|image|max:2048',
-            'email' => 'required|email|unique:admins,email',
+            'img' => 'required|image|max:2048',
+            'email' => [
+                'required',
+                Rule::unique('admins')->ignore($request->id),
+            ],
             'phone' => 'required|numeric',
             'age' => 'required|numeric',
             'address' => 'required',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:4',
            
-        ]);
+        ],
+    
+    
+        [
+            'name.required' => 'The name field is required.',
+            'name.unique' => 'The name has already been taken.',
+            'img.required' => 'Please upload an image.',
+            'img.image' => 'The uploaded file must be an image.',
+            'image.max' => 'The image size should not exceed 2MB.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email is already registered.',
+            'phone.required' => 'The phone number field is required.',
+            'phone.numeric' => 'Please enter a valid numeric phone number.',
+            'age.required' => 'The age field is required.',
+            'age.numeric' => 'Please enter a valid numeric age.',
+            'address.required' => 'The address field is required.',
+            'password.required' => 'The password field is required.',
+            'password.string' => 'Please enter a valid password.',
+            'password.min' => 'The password must be at least 8 characters long.',
+    ]);
 
         if ($validator->fails()) {
             // Handle validation failure (e.g., return an error response)
-            return redirect()->back()->with('error' , 'Invalid Category');
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         // dd($request->img);

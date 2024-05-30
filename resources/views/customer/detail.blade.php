@@ -24,8 +24,10 @@
                         <div class="btn-gp">
                             <input type="number" name="quantity" value="1" min="1"> <!-- Ensure the name attribute is set -->
                             <input type="hidden" name="id" value="{{ $product->id }}"> <!-- Pass the product ID as a hidden input -->
-                            <button type="submit">Add to cart</button>
-                            <a href="">Buy Now</a>
+                            <button type="submit" >Add to cart</button>
+                            <button><a href=""
+                            style="text-decoration: none; color:white;">Buy Now</a></button>
+                            
                         </div>
                     </form>
                     

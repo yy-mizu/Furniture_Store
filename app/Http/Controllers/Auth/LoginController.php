@@ -63,6 +63,7 @@ class LoginController extends Controller
         $input = $request->all();
         $userdata = array('name' => $input['name'], 'password' => $input['password']);
 
+        // dd($userdata);
         if($input['usertype'] == 'admin')
         {
             if(auth('admin')->attempt($userdata))
@@ -91,7 +92,7 @@ class LoginController extends Controller
             if(auth('customer')->attempt(($userdata))){
                 $user = auth('customer')->user();
                 if($user->status == "Active"){
-                    return redirect()->route('home');
+                    return redirect()->route('customer.home')->with('jsAlert', 'Welcome back!');;
                 } 
                 else{
                     Auth::logout();
@@ -99,7 +100,7 @@ class LoginController extends Controller
                 }
             }
             else{
-                Auth::logout();
+                // Auth::logout();
                 return redirect()->route('customer.login')->with('error','Wrong email and password.');
             }
         }

@@ -9,7 +9,7 @@
             the UK and much further a field.</p>
         </div>
         <div class="story-img">
-            <img src="{{asset('/image/customer/story.png')}}" alt="">
+            <img src="{{asset('/img/customer/story.png')}}" alt="">
         </div>
     </section>
     <section class="member">
@@ -17,7 +17,7 @@
         <div class="member-card-container">
             <div class="member-card">
                 <div class="member-img">
-                    <img src="{{asset('/image/customer/member1.png')}}" alt="">
+                    <img src="{{asset('/img/customer/member1.png')}}" alt="">
                 </div>
                 <div class="member-content">
                     <p>Frances Rodriguez</p>
@@ -26,7 +26,7 @@
             </div>
             <div class="member-card">
                 <div class="member-img">
-                    <img src="{{asset('/image/customer/member2.png')}}" alt="">
+                    <img src="{{asset('/img/customer/member2.png')}}" alt="">
                 </div>
                 <div class="member-content">
                     <p>Martha Garza</p>
@@ -35,7 +35,7 @@
             </div>
             <div class="member-card">
                 <div class="member-img">
-                    <img src="{{asset('/image/customer/member3.png')}}" alt="">
+                    <img src="{{asset('/img/customer/member3.png')}}" alt="">
                 </div>
                 <div class="member-content">
                     <p>Willie Robertson</p>
@@ -44,7 +44,7 @@
             </div>
             <div class="member-card">
                 <div class="member-img">
-                    <img src="{{asset('/image/customer/member4.png')}}" alt="">
+                    <img src="{{asset('/img/customer/member4.png')}}" alt="">
                 </div>
                 <div class="member-content">
                     <p>Jean Kelley</p>
@@ -53,7 +53,7 @@
             </div>
             <div class="member-card">
                 <div class="member-img">
-                    <img src="{{asset('/image/customer/member5.png')}}" alt="">
+                    <img src="{{asset('/img/customer/member5.png')}}" alt="">
                 </div>
                 <div class="member-content">
                     <p>Douglas Dean</p>
@@ -62,7 +62,7 @@
             </div>
             <div class="member-card">
                 <div class="member-img">
-                    <img src="{{asset('/image/customer/member6.png')}}" alt="">
+                    <img src="{{asset('/img/customer/member6.png')}}" alt="">
                 </div>
                 <div class="member-content">
                     <p>Alexander Fields</p>
@@ -86,7 +86,7 @@
         <div class="service-card-container">
             <div class="service-card">
                 <div class="service-img">
-                    <img src="{{asset('/image/customer/service1.png')}}" alt="">
+                    <img src="{{asset('/img/customer/service1.png')}}" alt="">
                 </div>
                 <div class="service-content">
                     <p>EASY PAYMENT</p>
@@ -95,17 +95,7 @@
             </div>
             <div class="service-card">
                 <div class="service-img">
-                    <img src="{{asset('/image/customer/service2.png')}}" alt="">
-                </div>
-                <div class="service-content">
-                    <p>EASY PAYMENT</p>
-                    <p>Fusce iaculis gravida lectus sed hendrerit. Aenean nec ipsum a ex eleifend porttitor</p>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-img">
-                    <img src="{{asset('/image/customer/service3.png')}}" alt="">
+                    <img src="{{asset('/img/customer/service2.png')}}" alt="">
                 </div>
                 <div class="service-content">
                     <p>EASY PAYMENT</p>
@@ -115,7 +105,17 @@
 
             <div class="service-card">
                 <div class="service-img">
-                    <img src="{{asset('/image/customer/service4.png')}}" alt="">
+                    <img src="{{asset('/img/customer/service3.png')}}" alt="">
+                </div>
+                <div class="service-content">
+                    <p>EASY PAYMENT</p>
+                    <p>Fusce iaculis gravida lectus sed hendrerit. Aenean nec ipsum a ex eleifend porttitor</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-img">
+                    <img src="{{asset('/img/customer/service4.png')}}" alt="">
                 </div>
                 <div class="service-content">
                     <p>EASY PAYMENT</p>

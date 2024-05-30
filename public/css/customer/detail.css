@@ -33,10 +33,12 @@
     display:flex;
     gap:1rem;
     align-items: center;
+    /* padding: 10px; */
 }
 .btn-gp input{
     width:3rem;
     height: 2.5rem;
+    margin-top: 1rem;
     
 }
 .btn-gp button{

@@ -93,7 +93,14 @@
 
         <div class="nav-right">
             <div><img src="{{ asset('img/customer/Frame.svg') }}" alt="magnifying glass"></div>
-            <div><img src="{{ asset('img/customer/Frame(1).svg') }}" alt="user"></div>
+           
+            <div>
+                <a href="{{route('customer.account')}}">
+                    <img src="{{ asset('img/customer/Frame(1).svg') }}" alt="user">
+                </a>
+            </div>
+           
+           
             <div class="dropdown">
                 <img src="{{ asset('img/customer/shoppingBag.png') }}" alt="cart">
                 <span class="cart-count">{{ count((array) session('cart')) }}</span>

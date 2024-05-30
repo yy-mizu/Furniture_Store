@@ -3,19 +3,90 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Product_Image;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
 {
     public function account()
     {
-        return view('customers.account');
+        return view('customer.login');
     }
+
+
+public function register(Request $request)
+{
+
+    // dd($request);
+    $validator = Validator::make($request->all(), [
+        'name' => [
+            'required',
+            Rule::unique('customers')->ignore($request->id),
+        ],
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'email' => [
+            'required',
+            Rule::unique('customers')->ignore($request->id),
+        ],
+        'phone' => 'required|numeric',
+        'password1' => 'required|string|min:4',
+       
+    ],
+    [
+        'name.required' => 'The name field is required.',
+        'name.unique' => 'The name has already been taken.',
+        'image.required' => 'Please upload an image.',
+        'image.image' => 'The uploaded file must be an image.',
+        'image.max' => 'The image size should not exceed 2MB.',
+        'email.required' => 'The email field is required.',
+        'email.email' => 'Please enter a valid email address.',
+        'email.unique' => 'This email is already registered.',
+        'phone.required' => 'The phone number field is required.',
+        'phone.numeric' => 'Please enter a valid numeric phone number.',
+        
+        'address.required' => 'The address field is required.',
+        'password1.required' => 'The password field is required.',
+        'password1.string' => 'Please enter a valid password.',
+        'password1.min' => 'The password must be at least 8 characters long.',
+]);
+
+    if ($validator->fails()) {
+        // Handle validation failure (e.g., return an error response)
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    // dd($request->img);
+    $uuid  = Str::uuid()->toString();
+    $img = $uuid.'.'.$request->image->extension();
+    $request->image->move(public_path('img/customer/profiles'), $img);
+
+    $customer = new Customer();
+    $customer->name = $request->name;
+    
+    $customer->uuid = $uuid;
+    $customer->status = 'Active';
+    $customer->image = $img;
+    $customer->address = $request->address;
+    $customer->phone = $request->phone;
+    $customer->email = $request->email;
+    $customer->password = bcrypt($request->password1);
+   
+
+    $customer->save();
+
+
+    return redirect()->back()->with('success', 'Account creation is successful.');
+}
+
+
 
     public function home()
     
@@ -93,7 +164,7 @@ class CustomerController extends Controller
         $category_list = Category::whereIn('name', ['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet']);
 
         
-        $grid_items =  Category::whereIn('name', ['jojo'])->withCount('products')
+        $grid_items =  Category::whereIn('name',['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet'])->withCount('products')
         ->get();
 
 

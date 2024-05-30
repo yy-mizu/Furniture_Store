@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('address');
-            $table->dateTime('joining_date');
             $table->string('password');
             $table->string('image');
             $table->string('uuid');
             $table->string('status');
+            $table->timestamps();
   
         });
     }

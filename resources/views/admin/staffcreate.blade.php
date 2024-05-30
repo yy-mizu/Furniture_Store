@@ -14,6 +14,11 @@
 @section('admin-body')
     <section class="add-staff-wrapper">
         <div class="add-staff-container">
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
             <form
                 action="{{ $updateStatus == true ? route('admin.staff.edit.process') : route('admin.staff.create.process') }}"
                 method = 'POST' class="add-staff-form" enctype="multipart/form-data">
