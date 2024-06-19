@@ -11,11 +11,7 @@
         <div class="login-form">
 
             <h1>Log In</h1>
-            @if(session()->has('jsAlert'))
-    <script>
-        alert('{{ session()->get('jsAlert') }}');
-    </script>
-@endif
+         
             <form action="{{route('customer.login.process')}}" method="POST">
                 @csrf
                 <input type="hidden" name="usertype" value="customer">

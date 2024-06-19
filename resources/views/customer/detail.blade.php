@@ -2,34 +2,41 @@
 @section('title','detail || furniture')
 @section('content')
 
-{{-- @dd($product) --}}
+{{-- @dd($related_products[0]->photos[0]->img) --}}
 <section class="detail-section">
         <div class="link-connect">
             <span>Home</span>
-            <span>Shop</span>
-            <span>Bed</span>
+            <span><a href="{{route('customer.shop')}}">Shop</a></span>
+            <span><a href="{{route('customer.shop')}}">{{$product->name}}</a></span>
             <span>Modway Olivia Bed</span>
         </div>
         <div class="detail">
-            <div class="detail-img" style="padding-top: 20%">
+            <div class="detail-img" >
                 <img src="{{asset('/img/products/'.$product->photos[0]->img)}}" alt="" width="70%">
             </div>
-            <div class="detail-content"  style="padding-top: 20%">
+            <div class="detail-content"  >
                 <h1>{{$product->name}}</h1>
                 <p>${{$product->price}}</p>
                 <p>{{$product->description}} </p>
                 <div class="btn-gp">
-                    <form action="{{ route('add_to_cart') }}" method="POST">
-                        @csrf <!-- CSRF token for Laravel -->
-                        <div class="btn-gp">
-                            <input type="number" name="quantity" value="1" min="1"> <!-- Ensure the name attribute is set -->
-                            <input type="hidden" name="id" value="{{ $product->id }}"> <!-- Pass the product ID as a hidden input -->
-                            <button type="submit" >Add to cart</button>
-                            <button><a href=""
-                            style="text-decoration: none; color:white;">Buy Now</a></button>
-                            
-                        </div>
+                    <form method="POST" action="{{ route('add_to_cart') }}" style="display: flex;align-items:center;flex-direction:row; gap:20px">
+                        @csrf
+                        <input type="number" name="quantity" value="1" min="1">
+                        <input type="hidden" name="id" value="{{ $product->id }}">
+                        <button type="submit">Add to Cart</button>
                     </form>
+                    
+                    
+                    <form method="POST" action="{{ route('customer.buynow') }}">
+                        @csrf
+                        <input type="hidden" name="quantity" value="1" >
+                        <input type="hidden" name="id" value="{{ $product->id }}">
+                        <button type="submit">Buy Now</button>
+                    </form>
+                       
+                         
+                       
+                  
                     
                 </div>
                 <p>SKU:{{$product->product_code}}</p>
@@ -49,7 +56,7 @@
             </div>
         </div>
 
-        <section class="tab-menu">
+        {{-- <section class="tab-menu">
             <div class="tab-nav">
                 <button class="" onclick="openMenu('description')"><a>DESCRIPTION</a></button>
                 <button class="" onclick="openMenu('additional')"><a>ADDITIONAL INFORMATION</a></button>
@@ -84,44 +91,32 @@
                 </p>
                 <input class="expand-btn" type="checkbox">
             </div>
-        </section>
+        </section> --}}
         <section class="recommend">
             <h4>YOU MAY ALSO LIKE...</h4>
-            <div class="card-container">
-                <div class="card">
-                    <div class="card-img">
-                        <img src="{{asset('/image/customer/detail-card1.png')}}" alt="">
+           
+
+            <div class="product-card-container">
+
+                @foreach ($related_products as $related)
+                    
+                <a class="card-link" href="{{url('/detail/'.$related->id)}}">
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="{{asset('img/products/'.$related->photos[0]->img)}}" alt="">
+                        <span class="sale">Sale</span>
                     </div>
-                      <div class="card-content">
-                        <p>Haiku 2-Seater Sofa</p>
-                        <p>$999.00 -$1,499.00</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{asset('/image/customer/detail-card2.png')}}" alt="">
-                    <div class="card-content">
-                        <p>Solid Wood Side Tables</p>
-                        <p>$350.00</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="{{asset('/image/customer/detail-card3.png')}}" alt="">
-                    <div class="card-content">
-                        <p>Vipp Wool Pillow</p>
-                        <p>$79.00</p>
+                    <div class="product-card-content">
+                        <p>{{$related->name}}</p>
+                        <p>${{$related->price}}</p>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="{{asset('/image/customer/detail-card4.png')}}" alt="">
-                    <div class="card-content">
-                        <span class="upperSpan minus">-20%</span>
-                        <p>Vipp Wool Blanket</p>
-                        <p><span class="mute-text">$100.00</span> $80.00</p>
-                    </div>
-                </div>
+                </a>
+                @endforeach
             </div>
         </section>
     </section>
     
+
 
 @endsection

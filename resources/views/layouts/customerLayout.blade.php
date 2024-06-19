@@ -30,27 +30,18 @@
 </head>
 
 <body>
+    {{-- @dd(asset('img/customer/profiles'. session('customer_image'))) --}}
+    {{-- @dd( Auth::id()) --}}
 
 
-
-    <section class="top-nav">
-        <div class="left">
-            <div><img src="{{ asset('img/customer/vector.svg') }}" alt="facebook"></div>
-            <div><img src="{{ asset('img/customer/instagram 1.svg') }}" alt="instargam"></div>
-            <div><img src="{{ asset('img/customer/youtube 1.svg') }}" alt="youtube"></div>
-            <div><img src="{{ asset('img/customer/telegram-original 1.svg') }}" alt="telegram"></div>
-        </div>
-
-
-        <div class="right">
-            <span>Up to 40% off best selling furnitures.</span>
-            <span>Shop Now</span>
-        </div>
-
-    </section>
+   
     <section class="nav">
         <div class="nav-left">
             <div class="nav-brand">Logo</div>
+
+
+
+
             <div class="nav-menu">
                 <a href="{{ route('customer.home') }}">Home</a>
                 <a href="{{ route('customer.shop') }}">Shop</a>
@@ -73,7 +64,7 @@
                                     <a href="#">Office</a>
                                     <a href="#">Chair</a>
                                 </div>
-                            
+
                             </div>
                             <div class="image-column">
                                 <img src="{{ asset('img/customer/megaMenu1.jpg') }}" alt="">
@@ -93,14 +84,34 @@
 
         <div class="nav-right">
             <div><img src="{{ asset('img/customer/Frame.svg') }}" alt="magnifying glass"></div>
-           
-            <div>
-                <a href="{{route('customer.account')}}">
-                    <img src="{{ asset('img/customer/Frame(1).svg') }}" alt="user">
-                </a>
-            </div>
-           
-           
+
+            @if (auth('customer')->user() != null)
+                <div class="profile-dropdown">
+                    <img src="{{ asset('img/customer/profiles/' . session('customer_image')) }}" alt=""
+                        width=40px height=40px style="border-radius:50%; object-fit:cover;">
+
+                    <div class="profile-dropdown-content">
+                        <form id="profilePictureForm" name= "profilePictureForm"
+                            action="{{ route('customer.changepic') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" value="{{ session('customer_id') }}" name="id">
+                            <input type="file" name="image" id="profilePictureInput" style="display: none">
+                            <button type="button" onclick="chooseProfilePicture()" class="pic-change-btn">Change
+                                Profile Picture</button>
+                        </form>
+
+
+                        <button class="logout-btn"> <a href="{{ route('customer.logout') }}">Logout</a></button>
+
+                    </div>
+                </div>
+            @else
+                <div>
+                    <a href="{{ route('customer.account') }}">
+                        <img src="{{ asset('img/customer/Frame(1).svg') }}" alt="user">
+                    </a>
+                </div>
+            @endif
             <div class="dropdown">
                 <img src="{{ asset('img/customer/shoppingBag.png') }}" alt="cart">
                 <span class="cart-count">{{ count((array) session('cart')) }}</span>
@@ -126,50 +137,123 @@
                                     @php $total += $details['price'] * $details['quantity'] @endphp
                                 @endif
                             @endforeach
-                       
+
                         </ul>
-                    
 
-                    <div class="cart-total">
-                        Total: <p class="total-amount">{{ $total }}</p>
+
+                        <div class="cart-total">
+                            Total: <p class="total-amount">{{ $total }}</p>
+                        </div>
+                        <button class="view-all-btn">
+                            <a href="{{ route('customer.cart') }}" style="text-decoration: none; color:white;">
+                                View Cart {{ count((array) session('cart')) }} items
+                            </a>
+                        </button>
+                    @else
+                        <div class="cart-blank">
+                            <p>No items in the cart</p>
+                        </div>
+
+                    @endif
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+            <div class="hamburger-menu">
+                <button class="hamburger-icon"><img src="{{ asset('img/customer/hamburger.png') }}"
+                        alt=""></button>
+                <nav class="slide-menu">
+                    <a href="{{ route('customer.home') }}">Home</a>
+                    <a href="{{ route('customer.shop') }}">Shop</a>
+
+                    <div class="hamburger-dropdown">
+                        <button class="hamburger-btn">Category
+                            <img src="{{ asset('img/customer/caret-down-solid.svg') }}" alt="" width=50px>
+                        </button>
+
+                        <div class="hamburger-content">
+
+                            <a href="">Bed</a>
+                            <a href="#">Cabinet</a>
+                            <a href="#">Sofa</a>
+                            <a href="#">Kitchen</a>
+                            <a href="#">Office</a>
+                            <a href="#">Chair</a>
+
+                        </div>
                     </div>
-                    <button class="view-all-btn">
-                       <a href="{{route('customer.cart')}}" style="text-decoration: none; color:white;">
-                        View Cart  {{ count((array) session('cart')) }} items
-                    </a> 
-                    </button>
 
-                @else
-                
-                <div class="cart-blank">
-                    <p>No items in the cart</p>
-                </div>
-                
-                @endif
+                    <a href="{{ route('customer.blogs') }}">Blog</a>
+                    <a href="{{ route('customer.about') }}">About Us</a>
 
-                </div>
-                
-                
+                    <a href="{{ route('customer.contact') }}">Contact</a>
 
-               
+                </nav>
             </div>
         </div>
 
 
     </section>
+    <section class="top-nav">
+        <div class="left">
+            <div><img src="{{ asset('img/customer/vector.svg') }}" alt="facebook"></div>
+            <div><img src="{{ asset('img/customer/instagram 1.svg') }}" alt="instargam"></div>
+            <div><img src="{{ asset('img/customer/youtube 1.svg') }}" alt="youtube"></div>
+            <div><img src="{{ asset('img/customer/telegram-original 1.svg') }}" alt="telegram"></div>
+        </div>
+
+
+        <div class="right">
+            <span>Up to 40% off best selling furnitures.</span>
+            <span>Shop Now</span>
+        </div>
+
+    </section>
 
     @yield('content')
-    
-@include('customer.footer')
 
-    
+    @include('customer.footer')
+
+
     <!-- custom js link  -->
     <script src="{{ asset('js/customer/home.js') }}"></script>
     <script src="{{ asset('js/customer/shop.js') }}"></script>
     <script>
+        const hamburgerButton = document.querySelector('.hamburger-icon');
+        const slideMenu = document.querySelector('.slide-menu');
+
+        hamburgerButton.addEventListener('click', () => {
+            slideMenu.classList.toggle('active');
+        });
+
+        const hamburgerButton2 = document.querySelector('.hamburger-btn');
+        const hamburgerContent = document.querySelector('.hamburger-content');
+
+        hamburgerButton2.addEventListener('click', () => {
+            hamburgerContent.classList.toggle('sub');
+        });
+
         $(document).ready(function() {
             $('.image-list').slick({
                 slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                prevArrow: "<button type='button' class='slick-prev'> &#10094</button>",
+                nextArrow: "<button type='button' class='slick-next'> &#10095 </button>"
+            });
+        });
+
+
+        $(document).ready(function() {
+            $('.banner-list').slick({
+                slidesToShow: 1,
                 slidesToScroll: 1,
                 autoplay: true,
                 autoplaySpeed: 2000,
@@ -207,88 +291,95 @@
                     $(this).addClass('active');
                 });
             });
-
-
-
-
         }
-    </script>
 
-<script type="text/javascript">
-    
- 
-    
 
-$(".updatebtn").click(function(e) {
-    e.preventDefault();
 
-    
-    $("tr").each(function() {
-        var ele = $(this).find(".cart_update");
+        function chooseProfilePicture() {
 
-      
-        $.ajax({
-            url: '{{ route('update_cart') }}',
-            method: "patch",
-            data: {
-                _token: '{{ csrf_token() }}', 
-                id: ele.parents("tr").attr("data-id"), 
-                quantity: ele.val() // Get the quantity from the input
-            },
-            success: function(response) {
-                // Handle the response here if needed
-                window.location.reload();
+            document.getElementById('profilePictureInput').click();
+        }
+
+
+        document.getElementById('profilePictureInput').addEventListener('change', function() {
+            // Check if a file is selected
+            if (this.files && this.files[0]) {
+
+                document.getElementById('profilePictureForm').submit();
             }
         });
-    });
+    </script>
 
-    // Reload the page after all AJAX calls are initiated
-    
-});
+    <script type="text/javascript">
+        $(".updatebtn").click(function(e) {
+            e.preventDefault();
 
 
-    $(".cart_remove").click(function (e) {
-        e.preventDefault();
-    
-        var ele = $(this);
-    
-        if(confirm("Do you really want to remove?")) {
-            $.ajax({
-                url: '{{ route('remove_from_cart') }}',
-                method: "DELETE",
-                data: {
-                    _token: '{{ csrf_token() }}', 
-                    id: ele.parents("tr").attr("data-id")
-                },
-                success: function (response) {
-                    window.location.reload();
-                }
+            $("tr").each(function() {
+                var ele = $(this).find(".cart_update");
+
+
+                $.ajax({
+                    url: '{{ route('update_cart') }}',
+                    method: "patch",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: ele.parents("tr").attr("data-id"),
+                        quantity: ele.val()
+                    },
+                    success: function(response) {
+
+                        window.location.reload();
+                    }
+                });
             });
-        }
-    });
 
 
-    $(".clearbtn").click(function (e) {
-        e.preventDefault();
-    
-        var ele = $(this);
-    
-        if(confirm("Do you really want to remove?")) {
-            $.ajax({
-                url: '{{ route('clear_cart') }}',
-                method: "DELETE",
-                data: {
-                    _token: '{{ csrf_token() }}', 
-                    id: ele.parents("tr").attr("data-id")
-                },
-                success: function (response) {
-                    window.location.reload();
-                }
-            });
-        }
-    });
-    
-</script>
+
+        });
+
+
+        $(".cart_remove").click(function(e) {
+            e.preventDefault();
+
+            var ele = $(this);
+
+            if (confirm("Do you really want to remove?")) {
+                $.ajax({
+                    url: '{{ route('remove_from_cart') }}',
+                    method: "DELETE",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: ele.parents("tr").attr("data-id")
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+
+
+        $(".clearbtn").click(function(e) {
+            e.preventDefault();
+
+            var ele = $(this);
+
+            if (confirm("Do you really want to remove?")) {
+                $.ajax({
+                    url: '{{ route('clear_cart') }}',
+                    method: "DELETE",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: ele.parents("tr").attr("data-id")
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    </script>
 
 
 

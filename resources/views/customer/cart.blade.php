@@ -74,7 +74,7 @@
 
         </table>
         <div class="btn-row">
-            <form action="/session" method="POST">
+            <form action="{{route('customer.checkout')}}" method="POST">
                 @csrf
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <button type="submit" id="checkout-live-button"class="checkout">Procced To Checkout</button>

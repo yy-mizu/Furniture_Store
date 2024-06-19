@@ -1,10 +1,10 @@
 <footer class="footer">
     <div class="footer-section">
         <div class="footer-social">
-            <img src="image/customer/facebook-f.svg" alt="facebook">
-            <img src="image/customer/twitter.svg" alt="twitter">
-            <img src="image/customer/flickr.svg" alt="flickr">
-            <img src="image/customer/instagram.svg" alt="instagram">
+            <img src="img/customer/facebook-f.svg" alt="facebook">
+            <img src="img/customer/twitter.svg" alt="twitter">
+            <img src="img/customer/flickr.svg" alt="flickr">
+            <img src="img/customer/instagram.svg" alt="instagram">
         </div>
         <div class="footer-links">
             <ul>
@@ -24,6 +24,6 @@
     </div>
     <div class="sub-footer">
         <span>© 2023. All Rights Reserved.</span>
-        <span><img src="image/customer/payment-gray-lighter.png.png" alt=""></span>
+        <span><img src="img/customer/payment-gray-lighter.png.png" alt=""></span>
     </div>
 </footer>

@@ -33,7 +33,7 @@ class ProductController extends Controller
         ->select('products.*' , 'categories.name as category' , 'product_image.img')
         ->orderByDesc('products.id')
         // ->where( 'product_image.primary_img' , '=' , '1' , 'AND' , 'products', 'product_image.product_id', '=', 'products.id'  )
-        ->get();
+        ->paginate(10);
 // $test = convertCategoryToProductCode($productlist)
 // dd($productlist);
         // $imagelist =DB::table('product_image')
@@ -45,9 +45,9 @@ class ProductController extends Controller
         //         ->get();
 
         // dd($imagelist);
+        $categorylist = Category::select('id', 'name')->get();
        
-       
-        return view('admin.products', compact('productlist' ));
+        return view('admin.products', compact('productlist','categorylist'   ));
     }
 
     public function create_product()
@@ -83,11 +83,15 @@ class ProductController extends Controller
         $product->admin_id = auth('admin')->user()->id;
         $product->created_at = Carbon::now();
 
+
+        $category = DB::table('categories')
+        ->select('name')
+        ->where('categories.id' , '=' , $request->category)
+        ->get();
+
+        // dd();
         //SAVING PRODUCT_CODE
-        $codename =convertCategoryToProductCode( DB::table('categories')
-                                                ->select('name')
-                                                ->where('categories.id' , '=' , $request->category)
-                                                ->get());
+        $codename =convertCategoryToProductCode($category[0]->name  );
         $product_data  = DB::table('products')->get();
 
         if($product_data == "[]")
@@ -188,6 +192,30 @@ class ProductController extends Controller
         // dd($id);
         Product::destroy($id);
         return redirect()->route('admin.productlist');
+    }
+
+    public function search(Request $request)
+    {
+        $query = DB::table('products')
+        ->join('categories', 'categories.id', '=', 'products.category_id')
+        ->leftJoin('product_image', 'product_image.product_id', '=', 'products.id')
+        ->join('suppliers', 'suppliers.id', '=', 'products.supplier_id')
+        ->join('admins', 'admins.id', '=', 'products.admin_id')
+        ->select('products.*', 'categories.name as category', 'product_image.img')
+        ->orderByDesc('products.id');
+        
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            // Add search condition to the query
+            $query->where('products.name', 'like', '%' . $searchTerm . '%')
+                ->orWhere('categories.name', 'like', '%' . $searchTerm . '%')
+                ->orWhere('suppliers.name', 'like', '%' . $searchTerm . '%');
+        }
+    
+        $productlist = $query->paginate(10);
+        $categorylist = Category::select('id', 'name')->get();
+    
+        return view('admin.products', compact('productlist', 'categorylist'));
     }
 
  

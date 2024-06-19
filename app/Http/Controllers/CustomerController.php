@@ -161,11 +161,13 @@ public function register(Request $request)
             ->take(8)
             ->get();
         // ->where( 'product_image.primary_img' , '=' , '1' , 'AND' , 'products', 'product_image.product_id', '=', 'products.id'  )
-        $category_list = Category::whereIn('name', ['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet']);
+        $category_list = Category::all();
 
         
-        $grid_items =  Category::whereIn('name',['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet'])->withCount('products')
+        $grid_items =  Category::limit(5)->withCount('products')
         ->get();
+
+        
 
 
         return view('customer.home' , compact( 'grid_items',
@@ -178,9 +180,15 @@ public function register(Request $request)
     {
         $product = Product::with(['category', 'photos'])->where('products.id', $id)->firstOrFail();
 
+        // dd($product->category->id);
+        $related_products =  Product::with('category', 'photos')
+                                    ->where('category_id', $product->category->id)
+                                    ->where('id', '!=', $id)
+                                    ->limit(5)
+                                    ->get();
 
 
-        return view('customer.detail' , compact('product' ) );
+        return view('customer.detail' , compact('product', 'related_products' ) );
     }
 
     public function shop()
@@ -188,9 +196,11 @@ public function register(Request $request)
         // $grid_items =  Category::whereIn('name', ['Bed', 'Sofa', 'Chair' , 'Lamp' ,'Cabinet'])->withCount('products')
         // ->get();
     
-       $products = Product::with('category', 'photos')->get();
-
-        return view('customer.shop', compact('products') );
+       $products = Product::with('category', 'photos')->paginate(8);
+    //    $products = Product::paginate(16);
+       $categories = Category::all();
+    //    dd($categories);
+        return view('customer.shop', compact('products' , 'categories') );
     }
     public function blogs()
     {
@@ -229,20 +239,24 @@ public function register(Request $request)
     public function addtocart(Request $request)
     {
         // $request->session()->flush();
-        // dd($request);
+       
+
         $id = $request->id;
+
         $products = Product::with(['category', 'photos'])->where('products.id','=', $id)->firstOrFail();
 
         $cart = session()->get('cart' , []);
-
+        // dd( $cart[$id]);
        
         // dd($products->photos[0]->img);
    
         if(isset($cart[$id]))
         {
-            $cart[$id]['quantity']++;
+            $cart[$id]['quantity']+= $request->quantity;
+            // dd( $cart[$id])['quantity'];
         }else{
             $cart[$id] = [
+                'product_id' => $products->id,
                 'product_name' => $products->name,
                     'img' => $products->photos[0]->img,
                     'quantity' => $request->quantity,
@@ -256,12 +270,37 @@ public function register(Request $request)
     
     }
 
+    
+
+public function buyNow(Request $request )
+{
+    $id = $request->id;
+
+    $product = Product::with(['category', 'photos'])->where('products.id','=', $id)->firstOrFail();
+
+   
+    $cart = session()->get('cart', []);
+
+    $cart[$id] = [
+        'product_id' => $product->id,
+        'product_name' => $product->name,
+        'img' => $product->photos[0]->img,
+        'quantity' => $request->quantity,
+        'price' => $product->price,
+    ];
+
+    session()->put('cart', $cart);
+
+  
+    return  view('customer.cart');
+}
+
     public function updatecart(Request $request)
     {
         // dd($request->quantity);
         if($request->id && $request->quantity){
             $cart = session()->get('cart');
-            $cart[$request->id]["quantity"] = $request->quantity;
+            $cart[$request->id]['quantity'] = $request->quantity;
             session()->put('cart', $cart);
             session()->flash('success', 'Cart successfully updated!');
         }
@@ -290,5 +329,165 @@ public function register(Request $request)
         
     }
 
+    public function checkout(Request $request)
+    {
+        return view('customer.checkout');
+    }
+
+    public function checkoutprocess(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+          
+            'name' => 'required|string',
+            'phone' => 'required|numeric',
+            'email' => 'required|email',
+            'address' => 'required',
+            'method' => 'required'
+           
+        ],
+        [
+            
+            'name.required' => 'Buyer Name is required.',
+            'name.string' => 'Name must be String type.',
+            'phone.required' => 'The phone number field is required.',
+            'phone.numeric' => 'Please enter a valid numeric phone number.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'address.required' => 'The address field is required.',
+            'method.required' => 'The Payment Method field is required.',
+            
+    ]);
+
+    if ($validator->fails()) {
+        // Handle validation failure (e.g., return an error response)
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+    Session::put('buyer_name', $request->name);
+    Session::put('buyer_email', $request->email);
+    Session::put('buyer_address', $request->address);
+    Session::put('buyer_phone', $request->phone);
+    Session::put('buyer_method', $request->method);
+  
+
+    if($request->method == 'cod'){
+        return view('customer.home');
+    }
+
+    if($request->method == 'online') {
+        return view('stripepayment');
+    }
+}
+
+    public function changepic(Request $request)
+
+  
+    {
+        // dd($request->image->extension());
+        $validator = Validator::make($request->all(), [
+          
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+           
+           
+        ],
+        [
+            
+            'image.image' => 'The uploaded file must be an image.',
+            'image.max' => 'The image size should not exceed 2MB.',
+            
+    ]);
+
+    if ($validator->fails()) {
+        // Handle validation failure (e.g., return an error response)
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    // dd($request->id);
+    $uuid  = Str::uuid()->toString();
+    $img = $uuid.'.'.$request->image->extension();
+    $request->image->move(public_path('img/customer/profiles'), $img);
+
+    $customer = Customer::find($request->id);
+    $customer->image = $img;
+    $customer->save();
+
+    Session::forget('customer_image');
+    Session::put('customer_image', $img);
+
+    return redirect()->back();
+    }
     
+    public function filter(Request $request)
+{
+
+    $products = Product::with('category', 'photos')
+
+    ->when($request->category != null , function($q) use ($request)
+        {
+            return $q->where('products.category_id', $request->category);
+        })
+
+        ->when($request->price == 'below500', function ($q) use ($request) {
+            return $q->where('products.price', '<=', 500);
+        })
+        ->when($request->price == '500to1000', function ($q) use ($request) {
+            return $q->whereBetween('products.price', [500, 1000]);
+        })
+        ->when($request->price == 'above1000', function ($q) use ($request) {
+            return $q->where('products.price', '>', 1000);
+        })
+        ->when($request->sort == 'latest', function ($q) {
+            return $q->orderBy('products.created_at', 'desc');
+        })
+        ->when($request->sort == 'oldest', function ($q) {
+            return $q->orderBy('products.created_at', 'asc');
+        })
+
+        ->paginate(8);
+        $categories = Category::all();
+
+        return view('customer.shop', compact('categories', 'products'));
+
+
+    // $query = Product::query();
+
+    
+    // if (isset($id)) {
+    //     $category_id = $id;
+       
+    //     $query->where('category_id', $category_id);
+    // }
+
+   
+    // $filtered_products = $query->with('category')->paginate(8);
+
+    // $categories = Category::all();
+   
+    //     return view('customer.shop', compact('filtered_products' , 'categories') );
+
+
+}
+
+public function search(Request $request)
+    {
+        // dd($request->search);
+        $query =  Product::with('category', 'photos');
+        
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+
+            $query->where('products.name', 'like', '%' . $searchTerm . '%');
+              
+                // ->orWhere('orders.name', 'like', '%' . $searchTerm . '%');
+        }
+    
+        $products = $query->paginate(8);
+       
+    
+       
+        $categories = Category::all();
+
+        return view('customer.shop', compact('categories', 'products'));
+    }
+
+
 }

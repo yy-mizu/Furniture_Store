@@ -13,7 +13,7 @@
         <div class="customer-table-container">
             <table class="customer-table">
                 <tr>
-                    <th style=" border-radius: 10px 0px 0px 10px;">Staff ID</th>
+                    <th style=" border-radius: 10px 0px 0px 10px;">ID</th>
                     <th>Image</th>
                     <th>Customer Name</th>
                     <th>Email</th>
@@ -36,8 +36,9 @@
                         <td>{{ $customer->phone }}</td>
                         <td>{{ $customer->status }}</td>
 
-                        <td><a href="{{ url('/admin/customerlist/update/' . $customer->id) }}">Edit</a></td>
-                        <td><a href="">Delete</a></td>
+                        <td><a href="{{ url('/admin/customer/delete/' . $customer->id) }}">
+                            <img src="{{asset('img/admin/trashbin.svg')}}" alt="">
+                        </a></td>
                     </tr>
                 @endforeach
 

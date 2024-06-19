@@ -29,7 +29,31 @@ class AdminController extends Controller
                      ->join('products'  , 'products.id', '=' , 'order_products.product_id')
                      ->select('orders.*' , 'products.name as productname' , 'order_products.quantity as order_quantity',
                             'order_products.created_at as date')
-                     ->get();
+                     ->paginate(10);
+
+                     // Assuming $orderlist contains the retrieved orders
+$groupedOrders = collect($orderlist)->groupBy('id');
+
+foreach ($groupedOrders as $orderId => $orders) {
+    $productNames = $orders->pluck('productname')->implode(', ');
+    // Now $productNames contains all product names for this order
+    // You can display them in your table row
+}
+
+
+    //     $orderlist = DB::table('orders')
+    // ->leftjoin('customers', 'customers.id', '=', 'orders.customer_id')
+    // ->join('order_products', 'order_products.order_id', '=', 'orders.id')
+    // ->join('products', 'products.id', '=', 'order_products.product_id')
+    // ->select('orders.*', 'customers.name as buyer_name', 'orders.created_at as date',
+    //     DB::raw('GROUP_CONCAT(products.name SEPARATOR ", ") as product_names'),
+    //     DB::raw('SUM(order_products.quantity) as total_quantity'))
+    //     ->groupBy('orders.id', 'orders.customer_id', 'orders.created_at' , 'orders.payment_method')
+    //     ->get();
+    
+
+return view('admin.dashboard', compact('orderlist', 'productNames'));
+
           return view('admin.dashboard' , compact('orderlist') );
     }
 
@@ -246,25 +270,46 @@ class AdminController extends Controller
 
 
     //FOR ORDERS
-    public function order_list()
-    {
-        $orderlist = DB::table('orders')
-                     ->leftjoin('customers', 'customers.id', '=', 'orders.customer_id')
-                     ->join('order_products' , 'order_products.order_id' , 'orders.id')
-                     ->join('products'  , 'products.id', '=' , 'order_products.product_id')
-                     ->select('orders.*' , 'products.name as productname' , 'order_products.quantity as order_quantity',
-                            'order_products.created_at as date')
-                     ->get();
+    // public function order_list()
+    // {
+       
+    //     $orderlist = DB::table('orders')
+    //                  ->leftjoin('customers', 'customers.id', '=', 'orders.customer_id')
+    //                  ->join('order_products' , 'order_products.order_id' , 'orders.id')
+    //                  ->join('products'  , 'products.id', '=' , 'order_products.product_id')
+    //                  ->select('orders.*' , 'products.name as productname' , 'order_products.quantity as order_quantity',
+    //                         'order_products.created_at as date')
+    //                  ->get();
         
-        // $order_product =DB::table('order_products')
-        //                 ->leftJoin('products' , 'products.id', '=' , 'order_products.product_id') 
-        //                 ->select('order_products.*')
-        //                 ->get();
+    //     // $order_product =DB::table('order_products')
+    //     //                 ->leftJoin('products' , 'products.id', '=' , 'order_products.product_id') 
+    //     //                 ->select('order_products.*')
+    //     //                 ->get();
 
                     
 
-        return view('admin.orderlist' ,compact('orderlist'));
-    }
+    //     return view('admin.orderlist' ,compact('orderlist'));
+    // }
+
+    public function order_list()
+{
+    $orderlist = DB::table('orders')
+        ->leftJoin('customers', 'customers.id', '=', 'orders.customer_id')
+        ->join('order_products', 'order_products.order_id', '=', 'orders.id')
+        ->join('products', 'products.id', '=', 'order_products.product_id')
+        ->select(
+            'orders.id', 
+            'customers.name as buyer_name',
+            DB::raw('GROUP_CONCAT(CONCAT(products.name, " (", order_products.quantity, ")") SEPARATOR ", ") as product_details'),
+            'orders.created_at as date',
+            'orders.status'
+        )
+        ->groupBy('orders.id', 'customers.name', 'orders.created_at', 'orders.status')
+        ->get();
+
+    return view('admin.orderlist', compact('orderlist'));
+}
+
     
  
 }

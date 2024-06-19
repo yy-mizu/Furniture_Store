@@ -47,7 +47,7 @@
                         <td><a href="{{ url('/admin/staff/edit/' . $staff->id) }}">
                             <img src="{{asset('img/admin/edit.svg')}}" alt="">
                         </a></td>
-                        <td><a href="{{ url('/admin/staff/edit/' . $staff->id) }}">
+                        <td><a href="{{ url('/admin/staff/delete/' . $staff->id) }}">
                             <img src="{{asset('img/admin/trashbin.svg')}}" alt="">
                         </a></td>
                     </tr>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 //*********IMPORTANT******** */
@@ -92,6 +93,11 @@ class LoginController extends Controller
             if(auth('customer')->attempt(($userdata))){
                 $user = auth('customer')->user();
                 if($user->status == "Active"){
+                    $customer = Customer::where('name', $request->name)->get();
+                    // dd($customer[0]->image);
+                    Session::put('customer_image', $customer[0]->image);
+                    Session::put('customer_id', $customer[0]->id);
+                    // dd( $customer[0]->id);
                     return redirect()->route('customer.home')->with('jsAlert', 'Welcome back!');;
                 } 
                 else{
@@ -115,7 +121,7 @@ class LoginController extends Controller
         Auth::logout();
         Session::flush();
 
-        return redirect()->route('customer.login');
+        return redirect()->route('customer.home');
     }
 
     public function AdminLogout()

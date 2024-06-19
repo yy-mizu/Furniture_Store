@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,14 @@ Route::get('/contact', [CustomerController::class, 'contact'])->name('customer.c
 Route::get('/customer/account', [CustomerController::class, 'account'])->name('customer.account');
 Route::post('/customer/login/process', [LoginController::class, 'login'])->name('customer.login.process');
 Route::post('/customer/register/process', [CustomerController::class, 'register'])->name('customer.register.process');
+Route::get('/customer/logout', [LoginController::class, 'CustomerLogout'])->name('customer.logout');
+Route::post('/customer/changepic', [CustomerController::class, 'changepic'])->name('customer.changepic');
+// Route::get('/customer/filter/{id}', [CustomerController::class, 'filter'])->name('customer.filter');
 
+
+//CUSTOMER FUNCTIONS
+Route::get('/shop/filter', [CustomerController::class, 'filter'])->name('customer.shop.filter');
+Route::post('/shop/search', [CustomerController::class, 'search'])->name('customer.shop.search');
 
 
 
@@ -45,7 +53,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/staff/edit/{id}', [AdminController::class, 'edit_staff'])->name('admin.staff.edit');
     Route::patch('/admin/staff/edit/process', [AdminController::class, 'edit_staff_process'])->name('admin.staff.edit.process');
     Route::get('/admin/staff/delete/{id}', [AdminController::class, 'delete_staff'])->name('admin.staff.delete');
-
+    
     //FOR PRODUCTS
     Route::get('/admin/dashboard/productlist', [ProductController::class, 'product_list'])->name('admin.productlist');
     Route::get('/admin/product/create', [ProductController::class, 'create_product'])->name('admin.product.create');
@@ -53,6 +61,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/product/edit/{id}', [ProductController::class, 'edit_product'])->name('admin.product.edit');
     Route::patch('/admin/product/edit/process', [ProductController::class, 'edit_product_process'])->name('admin.product.edit.process');
     Route::get('/admin/product/delete/{id}', [ProductController::class, 'delete_product'])->name('admin.product.delete');
+    Route::post('/admin/product/search/', [ProductController::class, 'search'])->name('searchProduct');
 
     //FOR CATEGORY
     Route::get('/admin/dashboard/categorylist', [CategoryController::class, 'category_list'])->name('admin.categorylist');
@@ -73,12 +82,19 @@ Route::middleware(['admin'])->group(function () {
     
     //FOR ORDER
     Route::get('/admin/orderlist', [AdminController::class, 'order_list'])->name('admin.orderlist');
+    Route::post('/admin/order/edit/', [OrderController::class, 'edit_order'])->name('order.update');
+    Route::get('/admin/orderlist/', [OrderController::class, 'filter'])->name('admin.orderlist.filter');
+    Route::post('/admin/orderlist/', [OrderController::class, 'search'])->name('admin.orderlist.search');
 });
 
 
 
 Route::get('/cart', [App\Http\Controllers\CustomerController::class, 'cart'])->name('customer.cart');
 Route::post('add-to-cart/', [CustomerController::class, 'addtocart'])->name('add_to_cart');
+Route::post('/checkout', [CustomerController::class, 'checkout'])->name('customer.checkout');
+Route::post('/checkout/process', [CustomerController::class, 'checkoutprocess'])->name('customer.checkout.process');
+Route::post('/instantbuy', [CustomerController::class, 'buynow'])->name('customer.buynow');
+Route::get('//checkout/process/save', [OrderController::class, 'saveOrderDetail'])->name('saveOrderDetail');
 Route::patch('update-cart', [CustomerController::class, 'updatecart'])->name('update_cart');
 Route::delete('remove-from-cart', [CustomerController::class, 'removecart'])->name('remove_from_cart');
 Route::delete('clear-cart', [CustomerController::class, 'clearcart'])->name('clear_cart');

@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="blog-container">
             {{-- <h1>Blog Post</h1> --}}
             <div class="blog-post-gallery">
                 <div class="blog-post-column">

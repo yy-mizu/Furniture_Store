@@ -1,85 +1,72 @@
 @extends('layouts.customerLayout')
 
 
+@if(session()->has('jsAlert'))
+<script>
+    alert('{{ session()->get('jsAlert') }}');
+</script>
+@endif
+
+@if(session()->has('thanks'))
+<script>
+    alert('{{ session()->get('thanks') }}');
+</script>
+@endif
+
 {{-- @dd($grid_items->isEmpty()) --}}
 @section('title', 'Home')
 
 @section('content')
     <!-- Slideshow container -->
-    <div class="slideshow-container">
+    <section class="slideshow-container">
         <div class="text">
             <h3>SALE OFF 30%</h3>
             <h1>Classic 2023 Interior Designs</h1>
             <p>orem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             <button>Shop Now <img src="{{asset('img/customer/right-arrow-svgrepo-com 2.svg')}}" alt=""></button>
         </div>
-        <!-- Full-width images with number and caption text -->
-        <div class="mySlides ">
-    
+      
+        <div class="banner-list">
             <img src="{{asset('img/customer/homeSlider.png')}}" alt="">
-    
-        </div>
-    
-        <div class="mySlides fade">
-    
+
             <img src="{{asset('img/customer/blog1.png')}}">
-    
-        </div>
-    
-        <div class="mySlides fade">
-    
+
             <img src="{{asset('img/customer/blog2.png')}}">
     
         </div>
     
-        <!-- Next and previous buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
+    </section>
 
 
     <section class="home-grid">
-        {{-- @foreach($grid_items as $item) --}}
+       
        @if(!$grid_items->isEmpty())
-        <div class="bed home-gird-card">
+        
+
+        @php
+            $classNames = [
+                'card--bg-bisque',
+                'card--bg-darksalmon',
+                'card--bg-moccasin',
+                'card--bg-lightgray',
+                'card--bg-azure',
+    ];
+        @endphp
+        @foreach($grid_items as $i=>$item)
+       
+        <div class="home-gird-card {{$classNames[$i]}}">
             <div class="home-grid-text">
-                <b>{{$grid_items[0]['name']}}</b>
-                <p>{{$grid_items[0]['products_count']}}</p>
-            </div>
-           
-            <img src="img/customer/homeGrid1.png" alt="">
-        </div>
-        <div class="sofa home-gird-card">
-            <div class="home-grid-text">
-                <b>{{$grid_items[1]['name']}}</b>
-                <p>{{$grid_items[1]['products_count']}}</p>
-            </div>
-            <img src="img/customer/homeGrid2.png" alt="">
-        </div>
-        <div class="lamp home-gird-card">
-            <div class="home-grid-text">
-                <b>{{$grid_items[2]['name']}}</b>
-                <p>{{$grid_items[2]['products_count']}}</p>
-            </div>
-             <img src="img/customer/homeGrid3.png" alt="">
-        </div>
-        <div class="cabinet home-gird-card">
-            <div class="home-grid-text">
-                <b>{{$grid_items[3]['name']}}</b>
-                <p>{{$grid_items[3]['products_count']}}</p>
+                <b>{{$item->name}}</b>
+                <p>{{$item->product_count}}</p>
             </div>
 
-            
-            <img src="img/customer/homeGrid4.png" alt="">
+            <a href="{{url('/customer/filter/'.$item->id)}}">
+            <img src="{{asset('img/category/'.$item->img)}}" alt="">
+            </a>
         </div>
-        <div class="table home-gird-card">
-            <div class="home-grid-text">
-                <b>{{$grid_items[4]['name']}}</b>
-                <p>{{$grid_items[4]['products_count']}}</p>
-            </div>
+      
+            @endforeach
             
-            <img src="img/customer/homeGrid5.png" alt="">
-        </div>
 @endif
       
         {{-- @endforeach --}}
@@ -157,7 +144,7 @@
                         <p>${{$lamp->price}}</p>
                     </div>
                 </div>
-            
+                    </a>
                 @endforeach
             </div>
             
@@ -179,7 +166,7 @@
                         <p>${{$cab->price}}</p>
                     </div>
                 </div>
-            
+                    </a>
                 @endforeach
             </div>
             
@@ -202,7 +189,7 @@
                         <p>${{$table->price}}</p>
                     </div>
                 </div>
-            
+                    </a>
                 @endforeach
             </div>
             

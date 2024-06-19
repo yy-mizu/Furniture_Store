@@ -40,8 +40,13 @@
                                 <img src="{{ asset('img/products/' . $imagelist[0]->img) }}" alt="" style="height: 300px; width:250px">
                             @else
                                 <input type="file" name="image[]" multiple>
+                           
                             @endif
                         </div>
+
+                        {{-- <form action="/upload" class="dropzone" id="image-upload">
+                            @csrf
+                          </form> --}}
 
                        
 

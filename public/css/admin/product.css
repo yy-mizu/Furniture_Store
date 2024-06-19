@@ -29,7 +29,7 @@
     color: white;
 }
 
-.product-page-title button{
+.product-page-title .add-btn{
     background-color: rgb(71,91,232);
     padding: 10px;
     border: none;
@@ -54,3 +54,37 @@
 }
 
 
+.search-form{
+    width:15rem;
+  display: flex;
+  
+   text-align: center;
+   border:1px solid var(--text_color);
+}
+.search-form input{
+    background-color: transparent;
+    border: 0.5px solid white;
+    width: 100%;
+}
+
+.search-form button{
+    background-color: transparent;
+    border: none;
+    /* display: flex; */
+    padding-top: 12px;
+
+}
+/* .btn {
+    width:10rem;
+    background-color: var(--primary_color);
+    border-radius: 5px;
+    padding: 1rem;
+    color:var(--text_color);
+    cursor: pointer;
+    display:flex;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    
+} */

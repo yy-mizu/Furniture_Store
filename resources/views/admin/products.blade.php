@@ -9,7 +9,15 @@
         <div class="product-page-title">
             <h4>Product List</h4>
 
-            <button style="  border-radius: 0px 10px 10px 10px;">
+            <div class="products-filter">
+                <form action="{{ route('searchProduct') }}" method="POST" class="search-form">
+                    @csrf
+                    <input type="text" name="search" placeholder="Search Products">
+                    <button type="submit"><img src="{{asset('img/admin/glass.png')}}" style="width: 25px" alt=""></button>
+                </form>
+            </div>
+
+            <button style="  border-radius: 0px 10px 10px 10px;" class="add-btn">
                 <a href="{{ route('admin.product.create') }}">Add New Product</a>
             </button>
         </div>
@@ -63,6 +71,9 @@
                 @endforeach
 
             </table>
+            <div class="pagination">
+                {{ $productlist->links() }}
+            </div>
         </div>
 
     </div>
